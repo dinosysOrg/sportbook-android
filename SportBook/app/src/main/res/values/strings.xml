@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Sport Book</string>
+    <string name="facebook_app_id">103873786863872</string>
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
 </resources>
