@@ -3,7 +3,6 @@ package com.dinosys.sportbook.features.signin
 import com.dinosys.sportbook.networks.authentication.AuthenticationAPI
 import com.dinosys.sportbook.networks.models.SignInModel
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton

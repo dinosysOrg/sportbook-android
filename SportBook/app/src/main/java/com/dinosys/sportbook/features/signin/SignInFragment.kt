@@ -16,9 +16,7 @@ import com.facebook.login.LoginResult
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import retrofit2.Response
@@ -48,7 +46,7 @@ class SignInFragment : BaseFragment() {
                     val password = etPassword.text.toString()
                     signInApi.signIn(userName, password)
                             .onErrorResumeNext {
-                                t: Throwable? -> onSignInErrorRespone()
+                                t: Throwable? -> onSignInErrorResponse()
                             }
                             .subscribeOn(Schedulers.newThread())
                 }
@@ -58,8 +56,8 @@ class SignInFragment : BaseFragment() {
         addDisposable(btnSignInDisposable)
     }
 
-    fun onSignInErrorRespone() : ObservableSource<Response<SignInModel>>? {
-        Log.e(TAG, "onSignInErrorRespone")
+    fun onSignInErrorResponse() : ObservableSource<Response<SignInModel>>? {
+        Log.e(TAG, "onSignInErrorResponse")
         return Observable.empty()
     }
 
@@ -70,7 +68,7 @@ class SignInFragment : BaseFragment() {
                 val signIn = response.body()
                 signIn?.header =  response.headers()
             }
-            else -> onSignInErrorRespone()
+            else -> onSignInErrorResponse()
         }
     }
 
@@ -108,5 +106,3 @@ class SignInFragment : BaseFragment() {
         val TAG = "LoginFragment"
     }
 }
-
-private val  <E> List<E>.isNotNullAndEmpty: Boolean get() = if (this == null || this.isEmpty()) true else false
