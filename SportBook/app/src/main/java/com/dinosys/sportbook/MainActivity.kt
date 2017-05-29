@@ -3,7 +3,7 @@ package com.dinosys.sportbook
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-import com.dinosys.sportbook.fragments.SignInFragment
+import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.managers.FragmentManager
 
 class MainActivity : AppCompatActivity() {

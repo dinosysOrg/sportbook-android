@@ -3,4 +3,5 @@
     <string name="facebook_app_id">103873786863872</string>
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
+    <string name="sign_in_text">Sign In</string>
 </resources>

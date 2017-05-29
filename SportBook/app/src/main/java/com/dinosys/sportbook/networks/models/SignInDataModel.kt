@@ -50,5 +50,4 @@ class SignInDataModel {
     @SerializedName("skill_id")
     @Expose
     var skillId: Any? = null
-
 }
