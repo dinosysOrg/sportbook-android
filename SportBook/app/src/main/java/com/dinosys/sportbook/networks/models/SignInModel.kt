@@ -9,9 +9,6 @@ class SignInModel {
     @SerializedName("data")
     @Expose
     var data: SignInDataModel? = null
-    @SerializedName("errors")
-    @Expose
-    val errors: List<String>? = null
 
     var header: Headers? = null
 }

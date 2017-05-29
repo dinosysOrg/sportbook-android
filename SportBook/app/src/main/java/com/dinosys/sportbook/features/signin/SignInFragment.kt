@@ -1,14 +1,15 @@
 package com.dinosys.sportbook.features.signin
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
+import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.networks.models.SignInModel
+import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -21,6 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import retrofit2.Response
 import javax.inject.Inject
+
 
 class SignInFragment : BaseFragment() {
 
@@ -44,11 +46,12 @@ class SignInFragment : BaseFragment() {
                 .switchMap {
                     val userName = etUsername.text.toString()
                     val password = etPassword.text.toString()
-                    signInApi.signIn(userName, password)
-                            .onErrorResumeNext {
-                                t: Throwable? -> onSignInErrorResponse()
-                            }
+                    signInApi.signIn(appContext,userName, password)
                             .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .onErrorResumeNext {
+                                t: Throwable? -> onSignInErrorResponse(t?.message)
+                            }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response -> onSignInDataResponse(response = response) })
@@ -56,19 +59,19 @@ class SignInFragment : BaseFragment() {
         addDisposable(btnSignInDisposable)
     }
 
-    fun onSignInErrorResponse() : ObservableSource<Response<SignInModel>>? {
-        Log.e(TAG, "onSignInErrorResponse")
+    fun onSignInErrorResponse(textError : String?) : ObservableSource<Response<SignInModel>>? {
+        ToastUtil.show(appContext, textError)
         return Observable.empty()
     }
 
     fun onSignInDataResponse(response: Response<SignInModel>) {
-        val error = response.body()?.errors
-        when (error) {
-            null -> {
+        val statusCode = response.code()
+        when (statusCode) {
+            200 -> {
                 val signIn = response.body()
-                signIn?.header =  response.headers()
+                signIn?.header = response.headers();
             }
-            else -> onSignInErrorResponse()
+            else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
         }
     }
 
