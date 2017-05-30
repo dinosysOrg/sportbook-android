@@ -1,6 +1,6 @@
 package com.dinosys.sportbook.networks.authentication
 
-import com.dinosys.sportbook.networks.models.SignInModel
+import com.dinosys.sportbook.networks.models.AuthModel
 import io.reactivex.Observable
 import org.json.JSONObject
 import retrofit2.Response
@@ -17,7 +17,7 @@ interface AuthenticationAPI {
 
     @FormUrlEncoded
     @POST("auth/sign_in")
-    fun signIn(@Field("email")email:String, @Field("password") password:String): Observable<Response<SignInModel>>
+    fun signIn(@Field("email")email:String, @Field("password") password:String): Observable<Response<AuthModel>>
 
     fun signUp(email:String, password:String): Observable<*>
 }

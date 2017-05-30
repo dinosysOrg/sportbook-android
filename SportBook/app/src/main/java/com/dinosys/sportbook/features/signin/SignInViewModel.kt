@@ -7,7 +7,7 @@ import com.dinosys.sportbook.extensions.isInvalidEmail
 import com.dinosys.sportbook.extensions.isInvalidPassword
 import com.dinosys.sportbook.extensions.throwable
 import com.dinosys.sportbook.networks.authentication.AuthenticationAPI
-import com.dinosys.sportbook.networks.models.SignInModel
+import com.dinosys.sportbook.networks.models.AuthModel
 import io.reactivex.Observable
 import retrofit2.Response
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class SignInViewModel @Inject constructor(val authApi : AuthenticationAPI) {
 
-     fun signIn(context: Context?, userName:String?, password:String?) : Observable<Response<SignInModel>> {
+     fun signIn(context: Context?, userName:String?, password:String?) : Observable<Response<AuthModel>> {
         if (userName.isNullOrEmpty()) {
             return Observable.error(context?.getString(R.string.error_username_required_text)?.throwable)
         }
