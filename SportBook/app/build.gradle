@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        release {
+        staging {
             if (project.hasProperty('APP_RELEASE_STORE_FILE')) {
                 storeFile file(APP_RELEASE_STORE_FILE)
                 storePassword APP_RELEASE_STORE_PASSWORD
@@ -21,7 +21,7 @@ android {
                 keyPassword APP_RELEASE_KEY_PASSWORD
             }
         }
-        debug {
+        production {
             if (project.hasProperty('APP_DEBUG_STORE_FILE')) {
                 storeFile file(APP_RELEASE_STORE_FILE)
                 storePassword APP_RELEASE_STORE_PASSWORD
@@ -36,6 +36,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        staging {
+
+        }
+
+        production {
+
+        }
+    }
+
+    productFlavors {
+        staging {
+            applicationId "com.dinosys.sportbook_staging"
+            signingConfig signingConfigs.staging
+        }
+
+        production {
+            applicationId "com.dinosys.sportbook_production"
+            signingConfig signingConfigs.production
+        }
+    }
+
 }
 repositories {
     mavenCentral()

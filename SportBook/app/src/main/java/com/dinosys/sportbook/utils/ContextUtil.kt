@@ -5,7 +5,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.view.View
 
-object ConextUtil {
+object ContextUtil {
 
     fun getApplicationContext(fragment: Fragment?): Context? {
         return getApplicationContext(fragment?.activity)

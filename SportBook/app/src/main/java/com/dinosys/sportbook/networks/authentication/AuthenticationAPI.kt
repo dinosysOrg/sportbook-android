@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface AuthenticationAPI {
 
-    @DELETE
+    @DELETE("auth/sign_out")
     fun singOut(@Header("Access-Token") accessToken: String?,
                 @Header("Client") client: String?,
                 @Header("Expiry") expiry: String?,
