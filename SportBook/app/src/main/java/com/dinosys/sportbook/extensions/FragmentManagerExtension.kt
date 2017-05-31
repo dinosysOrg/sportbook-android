@@ -5,18 +5,24 @@ import android.support.v4.app.FragmentManager
 import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.signin.SignInFragment
+import com.dinosys.sportbook.features.tournament.ProfileFragment
+import com.dinosys.sportbook.features.tournament.StatisticFragment
+import com.dinosys.sportbook.features.tournament.TournamentFragment
 
 fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false) {
-    val fragment = this.createFragmentByTAG(tag)
+    val fragment = createFragmentByTAG(tag)
     when(fragment) {
         null -> Log.e("FragmentManager", "Can not create fragment by tag ${tag}")
-        else -> attachFragment(containerId, fragment, SignInFragment.TAG, needFindInStack)
+        else -> attachFragment(containerId, fragment, tag, needFindInStack)
     }
 }
 
 private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
     when(tag) {
         SignInFragment.TAG -> SignInFragment()
+        StatisticFragment.TAG -> StatisticFragment()
+        ProfileFragment.TAG -> ProfileFragment()
+        TournamentFragment.TAG -> TournamentFragment()
         else -> null
     }
 
@@ -41,7 +47,10 @@ private fun FragmentManager.attachFragment(containerId: Int,
             if (previousFragment == null) {
                 this.addNewFragment(containerId, fragment, tag)
             } else {
-                this.beginTransaction().show(previousFragment).commit()
+                this.beginTransaction()
+                        .replace(containerId, previousFragment, tag)
+                        .addToBackStack(tag)
+                        .commit()
             }
         }
     }

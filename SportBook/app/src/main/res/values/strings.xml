@@ -9,4 +9,7 @@
     <string name="error_username_invalid_text">Username is email required.</string>
     <string name="error_password_invalid_text">Passwords must be at least %d characters.</string>
     <string name="error_login_failure_text">Login failure.</string>
+    <string name="title_tournament">Tournament</string>
+    <string name="title_statistic">Statistic</string>
+    <string name="title_profile">Profile</string>
 </resources>
