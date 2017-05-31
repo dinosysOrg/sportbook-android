@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sport Book</string>
+    <string name="facebook_app_id">103873786863872</string>
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="error_username_required_text">Username is required.</string>
+    <string name="error_password_required_text">Password is required.</string>
+    <string name="error_username_invalid_text">Username is email required.</string>
+    <string name="error_password_invalid_text">Passwords must be at least %d characters.</string>
+    <string name="error_login_failure_text">Login failure.</string>
 </resources>
