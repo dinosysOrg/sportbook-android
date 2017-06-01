@@ -1,6 +1,7 @@
 package com.dinosys.sportbook.features.signin
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,6 +23,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import retrofit2.Response
 import javax.inject.Inject
+import android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
+
 
 
 class SignInFragment : BaseFragment() {
@@ -37,7 +41,12 @@ class SignInFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         SportbookApp.authComponent.inject(this)
         initFacebookLoginConfig()
+        initViews()
         initListeners()
+    }
+
+    fun initViews() {
+        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
     }
 
     override fun initListeners() {
