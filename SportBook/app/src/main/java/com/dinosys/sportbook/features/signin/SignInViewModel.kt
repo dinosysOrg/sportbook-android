@@ -30,6 +30,9 @@ class SignInViewModel @Inject constructor(val authApi : AuthenticationAPI) {
         }
         return authApi.signIn(userName, password)
     }
+
+    fun signInWithFacebook(token:String) = authApi.signInWithFacebook(token)
+
 }
 
 

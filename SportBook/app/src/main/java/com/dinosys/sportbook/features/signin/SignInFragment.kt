@@ -8,6 +8,7 @@ import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
+import com.dinosys.sportbook.extensions.saveUser
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.ToastUtil
@@ -23,9 +24,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import retrofit2.Response
 import javax.inject.Inject
-import android.graphics.Paint.UNDERLINE_TEXT_FLAG
-
-
 
 
 class SignInFragment : BaseFragment() {
@@ -79,6 +77,9 @@ class SignInFragment : BaseFragment() {
             200 -> {
                 val signIn = response.body()
                 signIn?.header = response.headers()
+                if (appContext != null && signIn != null) {
+                    saveUser(appContext!!, signIn)
+                }
             }
             else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
         }
@@ -88,23 +89,22 @@ class SignInFragment : BaseFragment() {
         btnFacebookLogin!!.setReadPermissions("email")
         btnFacebookLogin!!.fragment = this
         mCallbackManager = CallbackManager.Factory.create()
-        btnFacebookLogin!!.registerCallback(mCallbackManager, createFacebookcallback())
-    }
-
-    private fun createFacebookcallback(): FacebookCallback<LoginResult> {
-        return object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
-
-            }
-
-            override fun onCancel() {
-                Log.v(TAG, "[FacebookCallback][onCancel]")
-            }
-
-            override fun onError(exception: FacebookException) {
-                Log.e(TAG, "[FacebookCallback][onError]:" + exception.message)
-            }
-        }
+        Observable.create<LoginResult> { e ->
+            btnFacebookLogin!!.registerCallback(mCallbackManager,
+                    object : FacebookCallback<LoginResult> {
+                        override fun onCancel() = e.onComplete()
+                        override fun onSuccess(result: LoginResult?) = e.onNext(result)
+                        override fun onError(error: FacebookException?) = e.onError(error)
+                    })
+        }.subscribeOn(AndroidSchedulers.mainThread())
+                .flatMap {
+                    e ->
+                    Log.e(TAG, e.accessToken.token)
+                    signInApi.signInWithFacebook(e.accessToken.token)
+                            .subscribeOn(Schedulers.newThread())
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ e -> Log.d(TAG, e.toString()) })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
