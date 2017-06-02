@@ -3,12 +3,14 @@ package com.dinosys.sportbook.features.signin
 import android.content.Context
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.configs.PASSWORD_MAX_LENGHT_REQUIRED
+import com.dinosys.sportbook.configs.REDIRECT_URL_FORGOT_PASSWORD
 import com.dinosys.sportbook.extensions.isInvalidEmail
 import com.dinosys.sportbook.extensions.isInvalidPassword
 import com.dinosys.sportbook.extensions.throwable
 import com.dinosys.sportbook.networks.authentication.AuthenticationAPI
 import com.dinosys.sportbook.networks.models.AuthModel
 import io.reactivex.Observable
+import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -33,6 +35,15 @@ class SignInViewModel @Inject constructor(val authApi : AuthenticationAPI) {
 
     fun signInWithFacebook(token:String) = authApi.signInWithFacebook(token)
 
+    fun forgotPassword(context:Context?, email:String?):Observable<Response<JSONObject>> {
+        if (email.isNullOrEmpty()) {
+            return Observable.error(context?.getString(R.string.error_email_required_text)?.throwable)
+        }
+        if (email!!.isInvalidEmail) {
+            return Observable.error(context?.getString(R.string.error_username_invalid_text)?.throwable)
+        }
+        return authApi.forgotPassword(email, REDIRECT_URL_FORGOT_PASSWORD)
+    }
 }
 
 

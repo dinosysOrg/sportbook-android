@@ -15,4 +15,5 @@
     <string name="sportbook_title">Sportbook</string>
     <string name="forgot_password_text">forgot password</string>
     <string name="create_an_account_text">Create An Account</string>
+    <string name="reset_password_text">Reset Password</string>
 </resources>

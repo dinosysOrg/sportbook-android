@@ -89,7 +89,7 @@ class SignInFragment : BaseFragment() {
         btnFacebookLogin!!.setReadPermissions("email")
         btnFacebookLogin!!.fragment = this
         mCallbackManager = CallbackManager.Factory.create()
-        Observable.create<LoginResult> { e ->
+        val disposable = Observable.create<LoginResult> { e ->
             btnFacebookLogin!!.registerCallback(mCallbackManager,
                     object : FacebookCallback<LoginResult> {
                         override fun onCancel() = e.onComplete()
@@ -105,6 +105,7 @@ class SignInFragment : BaseFragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ e -> Log.d(TAG, e.toString()) })
+        addDisposable(disposable)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

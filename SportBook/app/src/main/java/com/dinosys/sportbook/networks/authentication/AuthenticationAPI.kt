@@ -23,5 +23,10 @@ interface AuthenticationAPI {
     @POST("auth/sign_in_with_facebook")
     fun signInWithFacebook(@Field("access_token") accessToken:String): Observable<Response<JSONObject>>
 
+    @FormUrlEncoded
+    @POST("auth/password")
+    fun forgotPassword(@Field("email") email : String,
+                       @Field("redirect_url") redirectUrl : String) : Observable<Response<JSONObject>>
+
     fun signUp(email:String, password:String): Observable<*>
 }
