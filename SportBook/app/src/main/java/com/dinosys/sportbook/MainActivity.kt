@@ -2,10 +2,12 @@ package com.dinosys.sportbook
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.crashlytics.android.Crashlytics
 import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Fabric.with(this, Crashlytics())
         initListeners()
         navigation.selectedItemId = R.id.navigation_tournament
     }

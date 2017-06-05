@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -62,6 +63,7 @@ android {
 }
 repositories {
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
 kapt {
     generateStubs = true
@@ -106,4 +108,9 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.4'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.android.support:design:25.3.1'
+
+    //Fabric
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
