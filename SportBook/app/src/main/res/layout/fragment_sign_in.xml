@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
 
     <LinearLayout
         android:id="@+id/llLoginContainer"
@@ -10,11 +12,19 @@
         android:layout_margin="@dimen/margin_login_container"
         android:orientation="vertical">
 
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/sportbook_title"
+            android:textSize="@dimen/text_size_main_sign_up_title"
+            />
+
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username_text" />
+            android:hint="@string/email_text" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/etPassword"
@@ -24,9 +34,25 @@
 
         <Button
             android:id="@+id/btnSignIn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_text"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/forgot_password_text"
+            />
+
+        <Button
+            android:id="@+id/btnCreateAnAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_btn_create_an_account_top"
+            android:text="@string/create_an_account_text"
             />
     </LinearLayout>
 

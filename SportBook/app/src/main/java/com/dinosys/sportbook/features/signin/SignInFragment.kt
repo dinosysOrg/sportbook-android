@@ -1,6 +1,7 @@
 package com.dinosys.sportbook.features.signin
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
@@ -37,7 +39,12 @@ class SignInFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         SportbookApp.authComponent.inject(this)
         initFacebookLoginConfig()
+        initViews()
         initListeners()
+    }
+
+    fun initViews() {
+        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
     }
 
     override fun initListeners() {
@@ -70,6 +77,9 @@ class SignInFragment : BaseFragment() {
             200 -> {
                 val signIn = response.body()
                 signIn?.header = response.headers()
+                if (appContext != null && signIn != null) {
+                    AuthenticationManager.saveUser(appContext!!, signIn)
+                }
             }
             else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
         }
@@ -79,23 +89,23 @@ class SignInFragment : BaseFragment() {
         btnFacebookLogin!!.setReadPermissions("email")
         btnFacebookLogin!!.fragment = this
         mCallbackManager = CallbackManager.Factory.create()
-        btnFacebookLogin!!.registerCallback(mCallbackManager, createFacebookcallback())
-    }
-
-    private fun createFacebookcallback(): FacebookCallback<LoginResult> {
-        return object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
-
-            }
-
-            override fun onCancel() {
-                Log.v(TAG, "[FacebookCallback][onCancel]")
-            }
-
-            override fun onError(exception: FacebookException) {
-                Log.e(TAG, "[FacebookCallback][onError]:" + exception.message)
-            }
-        }
+        val disposable = Observable.create<LoginResult> { e ->
+            btnFacebookLogin!!.registerCallback(mCallbackManager,
+                    object : FacebookCallback<LoginResult> {
+                        override fun onCancel() = e.onComplete()
+                        override fun onSuccess(result: LoginResult?) = e.onNext(result)
+                        override fun onError(error: FacebookException?) = e.onError(error)
+                    })
+        }.subscribeOn(AndroidSchedulers.mainThread())
+                .flatMap {
+                    e ->
+                    Log.e(TAG, e.accessToken.token)
+                    signInApi.signInWithFacebook(e.accessToken.token)
+                            .subscribeOn(Schedulers.newThread())
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ e -> Log.d(TAG, e.toString()) })
+        addDisposable(disposable)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

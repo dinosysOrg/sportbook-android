@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -13,20 +14,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
+
         staging {
-            if (project.hasProperty('APP_RELEASE_STORE_FILE')) {
-                storeFile file(APP_RELEASE_STORE_FILE)
-                storePassword APP_RELEASE_STORE_PASSWORD
-                keyAlias APP_RELEASE_KEY_ALIAS
-                keyPassword APP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('APP_STAGING_STORE_FILE')) {
+                storeFile file(APP_STAGING_STORE_FILE)
+                storePassword APP_STAGING_STORE_PASSWORD
+                keyAlias APP_STAGING_KEY_ALIAS
+                keyPassword APP_STAGING_KEY_PASSWORD
             }
         }
+
         production {
-            if (project.hasProperty('APP_DEBUG_STORE_FILE')) {
-                storeFile file(APP_RELEASE_STORE_FILE)
-                storePassword APP_RELEASE_STORE_PASSWORD
-                keyAlias APP_RELEASE_KEY_ALIAS
-                keyPassword APP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('APP_PRODUCTION_STORE_FILE')) {
+                storeFile file(APP_PRODUCTION_STORE_FILE)
+                storePassword APP_PRODUCTION_STORE_PASSWORD
+                keyAlias APP_PRODUCTION_KEY_ALIAS
+                keyPassword APP_PRODUCTION_KEY_PASSWORD
             }
         }
     }
@@ -48,6 +51,7 @@ android {
     }
 
     productFlavors {
+
         staging {
             applicationId "com.dinosys.sportbook_staging"
             signingConfig signingConfigs.staging
@@ -62,6 +66,7 @@ android {
 }
 repositories {
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
 kapt {
     generateStubs = true
@@ -105,4 +110,10 @@ dependencies {
     compile 'com.google.dagger:dagger:2.4'
     kapt 'com.google.dagger:dagger-compiler:2.4'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.android.support:design:25.3.1'
+
+    //Fabric
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
