@@ -3,7 +3,7 @@ package com.dinosys.sportbook.di.authentication
 import com.dinosys.sportbook.di.NetworkModule
 import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
-import com.facebook.login.LoginFragment
+import com.dinosys.sportbook.features.signup.SignUpFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -15,4 +15,5 @@ import javax.inject.Singleton
 interface AuthenticationComponent {
         fun inject(singInfragment: SignInFragment)
         fun inject(forgotFragment: ForgotFragment)
+        fun inject(singUpfragment: SignUpFragment)
 }
