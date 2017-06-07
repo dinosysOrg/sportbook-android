@@ -4,9 +4,12 @@
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
     <string name="sign_in_text">Sign In</string>
+    <string name="error_name_required_text">Name is required.</string>
     <string name="error_username_required_text">Username is required.</string>
     <string name="error_password_required_text">Password is required.</string>
     <string name="error_username_invalid_text">Username is email required.</string>
     <string name="error_password_invalid_text">Passwords must be at least %d characters.</string>
     <string name="error_login_failure_text">Login failure.</string>
+    <string name="error_password_mismatch_text">Password mistmatch!</string>
+    <string name="error_signup_failure_text">Sign up failure.</string>
 </resources>

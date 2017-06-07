@@ -19,5 +19,7 @@ interface AuthenticationAPI {
     @POST("auth/sign_in")
     fun signIn(@Field("email")email:String, @Field("password") password:String): Observable<Response<AuthModel>>
 
-    fun signUp(email:String, password:String): Observable<*>
+    @FormUrlEncoded
+    @POST("auth/")
+    fun signUp(@Field("email")email:String, @Field("password") password:String): Observable<Response<AuthModel>>
 }
