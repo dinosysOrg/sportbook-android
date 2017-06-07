@@ -4,4 +4,5 @@
     <dimen name="text_size_main_sign_up_title">17pt</dimen>
     <dimen name="margin_btn_create_an_account_top">25dp</dimen>
     <dimen name="margin_forgot_password_all">15dp</dimen>
+    <dimen name="height_tournament_list_divider">10dp</dimen>
 </resources>

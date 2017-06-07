@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
         Fabric.with(this, Crashlytics())
         initListeners()
         navigation.selectedItemId = R.id.navigation_tournament
