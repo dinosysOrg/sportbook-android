@@ -8,8 +8,8 @@ import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
-import com.dinosys.sportbook.extensions.saveUser
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
@@ -78,7 +78,7 @@ class SignInFragment : BaseFragment() {
                 val signIn = response.body()
                 signIn?.header = response.headers()
                 if (appContext != null && signIn != null) {
-                    saveUser(appContext!!, signIn)
+                    AuthenticationManager.saveUser(appContext!!, signIn)
                 }
             }
             else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))

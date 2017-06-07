@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Sport Book</string>
-    <string name="facebook_app_id">103873786863872</string>
-    <string name="fabric_api_key">379f9d1b32592612592b2824a442465e0b8d8c2f</string>
     <string name="email_text">Email</string>
     <string name="password_text">Password</string>
     <string name="sign_in_text">Sign In</string>
