@@ -1,9 +1,6 @@
 package com.dinosys.sportbook.utils
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-
 
 
 object SharedPreferenceUtil {
