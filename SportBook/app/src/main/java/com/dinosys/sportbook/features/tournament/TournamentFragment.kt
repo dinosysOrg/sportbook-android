@@ -4,9 +4,8 @@ package com.dinosys.sportbook.features.tournament
 import android.os.Bundle
 import android.view.View
 import com.dinosys.sportbook.R
-import com.dinosys.sportbook.components.VerticalSpaceDecorator
+import com.dinosys.sportbook.components.ItemSpaceDecorator
 import com.dinosys.sportbook.features.BaseFragment
-import com.dinosys.sportbook.networks.models.TournamentModel
 import kotlinx.android.synthetic.main.fragment_tournament.*
 import com.facebook.FacebookSdk.getApplicationContext
 import android.support.v7.widget.LinearLayoutManager
@@ -22,7 +21,9 @@ class TournamentFragment : BaseFragment() {
 
     fun initViews() {
         val tournaments = TournamentViewModel().getTournamentList()
-        val verticalSpacing = VerticalSpaceDecorator(resources.getDimensionPixelOffset(R.dimen.height_tournament_list_divider))
+        val heightDivider = resources.getDimensionPixelOffset(R.dimen.height_tournament_list_divider)
+        val verticalSpacing = ItemSpaceDecorator(left = heightDivider, right = heightDivider,
+                                                        top = heightDivider, bottom = heightDivider)
         rvTournament.layoutManager = LinearLayoutManager(getApplicationContext())
         rvTournament.addItemDecoration(verticalSpacing);
         rvTournament.adapter = TournamentAdapter(tournaments)

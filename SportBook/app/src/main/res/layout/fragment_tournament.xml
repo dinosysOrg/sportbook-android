@@ -1,19 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <com.dinosys.sportbook.components.Toolbar
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.dinosys.sportbook.components.ToolbarView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:enableNotificationIcon="true"
+        app:toolbarTitle="@string/title_tournament"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTournament"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         />
 </LinearLayout>

@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 
 
-class VerticalSpaceDecorator(private val verticalSpaceHeight: Int) : RecyclerView.ItemDecoration() {
+class ItemSpaceDecorator(val left:Int = 0, val right:Int = 0, val top:Int = 0, val bottom: Int = 0) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
                                 state: RecyclerView.State) {
-        outRect.bottom = verticalSpaceHeight
+        outRect.top = top
+        outRect.bottom = bottom
+        outRect.left = left
+        outRect.right = right
     }
 
 }
