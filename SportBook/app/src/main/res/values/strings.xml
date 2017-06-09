@@ -19,4 +19,6 @@
     <string name="reset_password_text">Reset Password</string>
     <string name="error_password_mismatch_text">Password mistmatch!</string>
     <string name="error_signup_failure_text">Sign up failure.</string>
+    <string name="icon_back">&#xf104;</string>
+    <string name="icon_notification">&#xf0a2;</string>
 </resources>

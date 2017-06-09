@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dinosys.sportbook.R
-import com.dinosys.sportbook.networks.models.TournamentModel
+import com.dinosys.sportbook.networks.models.TournamentDataModel
 
-class TournamentAdapter(val tournaments: List<TournamentModel>?) : RecyclerView.Adapter<TournamentViewHolder>() {
+class TournamentAdapter(val tournaments: List<TournamentDataModel>?) : RecyclerView.Adapter<TournamentViewHolder>() {
 
     override fun onBindViewHolder(holder: TournamentViewHolder?, position: Int) {
             holder?.bindView(tournaments!![position], position)
@@ -17,6 +17,6 @@ class TournamentAdapter(val tournaments: List<TournamentModel>?) : RecyclerView.
         return TournamentViewHolder(view)
     }
 
-    override fun getItemCount(): Int = this.tournaments?.size?:0
+    override fun getItemCount(): Int = this.tournaments?.size ?: 0
 
 }

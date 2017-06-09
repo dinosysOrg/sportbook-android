@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolbarView">
+        <attr name="enableBackIcon" format="boolean"/>
+        <attr name="enableNotificationIcon" format="boolean"/>
+        <attr name="toolbarTitle" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="TextView">
+        <attr name="typeface" format="enum">
+            <enum name="fontawesome" value="0" />
+        </attr>
+    </declare-styleable>
+</resources>

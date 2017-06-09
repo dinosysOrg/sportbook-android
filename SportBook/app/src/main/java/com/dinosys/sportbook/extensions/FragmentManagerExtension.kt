@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import com.dinosys.sportbook.R
+import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
+import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
@@ -20,9 +22,11 @@ fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_
 private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
     when(tag) {
         SignInFragment.TAG -> SignInFragment()
+        SignUpFragment.TAG -> SignUpFragment()
         StatisticFragment.TAG -> StatisticFragment()
         ProfileFragment.TAG -> ProfileFragment()
         TournamentFragment.TAG -> TournamentFragment()
+        ForgotFragment.TAG -> ForgotFragment()
         else -> null
     }
 
@@ -31,6 +35,12 @@ private fun FragmentManager.addNewFragment(containerId: Int, fragment: Fragment,
     val transaction = this.beginTransaction()
     transaction.add(containerId, fragment, tag)
             .addToBackStack(tag)
+            .commit()
+}
+
+fun FragmentManager.remove(fragment: Fragment) {
+    val transaction = this.beginTransaction()
+    transaction.remove(fragment)
             .commit()
 }
 

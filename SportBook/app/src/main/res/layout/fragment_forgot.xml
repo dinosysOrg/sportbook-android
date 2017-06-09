@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_forgot_password_all"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.dinosys.sportbook.features.signin.ForgotFragment">
 
     <android.support.v7.widget.AppCompatEditText

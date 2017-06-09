@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorAccent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+   >
 
-</LinearLayout>
+    <com.dinosys.sportbook.components.TextView
+        android:id="@+id/tvBackIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:textSize="17pt"
+        android:layout_marginLeft="@dimen/margin_toolbar_icon_back_left"
+        android:text="@string/icon_back" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+    <com.dinosys.sportbook.components.TextView
+        android:id="@+id/tvNotificationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="10pt"
+        android:layout_marginRight="@dimen/margin_toolbar_notification_icon_right"
+        android:text="@string/icon_notification"
+        />
+</RelativeLayout>

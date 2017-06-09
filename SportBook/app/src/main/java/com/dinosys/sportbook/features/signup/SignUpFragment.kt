@@ -65,20 +65,20 @@ class SignUpFragment : BaseFragment() {
         addDisposable(btnSignUpDisposable)
     }
 
-    fun onSignUpErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
+    private fun onSignUpErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
         ToastUtil.show(appContext, textError)
         return Observable.empty()
     }
-    fun onSignUpDataResponse(response: Response<AuthModel>) {
+
+    private fun onSignUpDataResponse(response: Response<AuthModel>) {
         val statusCode = response.code()
         when (statusCode) {
-            200 -> {
+            in 200..300 -> {
                 val signIn = response.body()
                 signIn?.header = response.headers()
             }
             else -> onSignUpErrorResponse(getString(R.string.error_login_failure_text))
         }
-        ToastUtil.show(appContext,"Sign up Success")
     }
 
     private fun initFacebookLoginConfig() {
