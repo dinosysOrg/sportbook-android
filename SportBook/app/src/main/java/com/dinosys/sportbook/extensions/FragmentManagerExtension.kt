@@ -10,6 +10,8 @@ import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
+import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
+import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
 
 fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false) {
     val fragment = createFragmentByTAG(tag)
@@ -27,6 +29,8 @@ private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
         ProfileFragment.TAG -> ProfileFragment()
         TournamentFragment.TAG -> TournamentFragment()
         ForgotFragment.TAG -> ForgotFragment()
+        TournamentOverviewFragment.TAG -> TournamentOverviewFragment()
+        TournamentSignUpFragment.TAG -> TournamentSignUpFragment()
         else -> null
     }
 

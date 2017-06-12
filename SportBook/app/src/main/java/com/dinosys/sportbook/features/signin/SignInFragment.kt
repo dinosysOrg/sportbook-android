@@ -2,9 +2,7 @@ package com.dinosys.sportbook.features.signin
 
 import android.content.Intent
 import android.graphics.Paint
-import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.dinosys.sportbook.MainActivity
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
@@ -39,16 +37,13 @@ class SignInFragment : BaseFragment() {
 
     private var mCallbackManager: CallbackManager? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        SportbookApp.authComponent.inject(this)
-        initFacebookLoginConfig()
-        initViews()
-        initListeners()
+    override fun initViews() {
+        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
     }
 
-    fun initViews() {
-        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+    override fun initData() {
+        SportbookApp.authComponent.inject(this)
+        initFacebookLoginConfig()
     }
 
     override fun initListeners() {

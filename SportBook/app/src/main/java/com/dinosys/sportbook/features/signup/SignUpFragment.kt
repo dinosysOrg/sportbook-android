@@ -1,9 +1,7 @@
 package com.dinosys.sportbook.features.signup
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
@@ -36,11 +34,9 @@ class SignUpFragment : BaseFragment() {
 
     private var mCallbackManager: CallbackManager? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initData() {
         SportbookApp.authComponent.inject(this)
         initFacebookLoginConfig()
-        initListeners()
     }
 
 
@@ -114,8 +110,6 @@ class SignUpFragment : BaseFragment() {
     companion object {
         val TAG = "SignUpFragment"
     }
-
-
 
 }
 
