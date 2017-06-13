@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Sport Book</string>
-    <string name="facebook_app_id">103873786863872</string>
-    <string name="fabric_api_key">379f9d1b32592612592b2824a442465e0b8d8c2f</string>
     <string name="email_text">Email</string>
     <string name="password_text">Password</string>
     <string name="sign_in_text">Sign In</string>
     <string name="error_email_required_text">Email is required.</string>
+    <string name="error_name_required_text">Name is required.</string>
+    <string name="error_username_required_text">Username is required.</string>
     <string name="error_password_required_text">Password is required.</string>
     <string name="error_username_invalid_text">Username is email required.</string>
     <string name="error_password_invalid_text">Passwords must be at least %d characters.</string>
@@ -17,4 +17,8 @@
     <string name="forgot_password_text">forgot password</string>
     <string name="create_an_account_text">Create An Account</string>
     <string name="reset_password_text">Reset Password</string>
+    <string name="error_password_mismatch_text">Password mistmatch!</string>
+    <string name="error_signup_failure_text">Sign up failure.</string>
+    <string name="icon_back">&#xf104;</string>
+    <string name="icon_notification">&#xf0a2;</string>
 </resources>

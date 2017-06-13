@@ -5,11 +5,15 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.dinosys.sportbook.MainActivity
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
-import com.dinosys.sportbook.extensions.saveUser
+import com.dinosys.sportbook.extensions.openScreenByTag
+import com.dinosys.sportbook.extensions.remove
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.features.signup.SignUpFragment
+import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
@@ -64,6 +68,9 @@ class SignInFragment : BaseFragment() {
                 .subscribe({ response -> onSignInDataResponse(response = response) })
 
         addDisposable(btnSignInDisposable)
+
+        tvForgotPassword.setOnClickListener { fragmentManager.openScreenByTag(ForgotFragment.TAG) }
+        btnCreateAnAccount.setOnClickListener { fragmentManager.openScreenByTag(SignUpFragment.TAG) }
     }
 
     fun onSignInErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
@@ -74,11 +81,13 @@ class SignInFragment : BaseFragment() {
     fun onSignInDataResponse(response: Response<AuthModel>) {
         val statusCode = response.code()
         when (statusCode) {
-            200 -> {
+            in 200..300 -> {
                 val signIn = response.body()
                 signIn?.header = response.headers()
                 if (appContext != null && signIn != null) {
-                    saveUser(appContext!!, signIn)
+                    AuthenticationManager.saveUser(appContext!!, signIn)
+                    (activity as MainActivity).loadTabContentDefaultSelected()
+                    fragmentManager.remove(this)
                 }
             }
             else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))

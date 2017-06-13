@@ -1,19 +1,15 @@
 package com.dinosys.sportbook.features.signin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
-import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.BaseFragment
-import com.dinosys.sportbook.networks.models.AuthModel
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_forgot.*
 import org.json.JSONObject
 import retrofit2.Response
@@ -48,12 +44,16 @@ class ForgotFragment : BaseFragment() {
         addDisposable(disposable)
     }
 
-    fun onForgotErrorResponse(error: String?): ObservableSource<Response<JSONObject>> {
+    private fun onForgotErrorResponse(error: String?): ObservableSource<Response<JSONObject>> {
         return Observable.empty()
     }
 
-    fun onForgotSuccessResponse(response: Response<JSONObject>) {
+    private fun onForgotSuccessResponse(response: Response<JSONObject>) {
 
+    }
+
+    companion object {
+        val TAG = "ForgotFragment"
     }
 
 }

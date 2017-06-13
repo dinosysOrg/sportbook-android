@@ -5,4 +5,6 @@
     <dimen name="margin_btn_create_an_account_top">25dp</dimen>
     <dimen name="margin_forgot_password_all">15dp</dimen>
     <dimen name="height_tournament_list_divider">10dp</dimen>
+    <dimen name="margin_toolbar_icon_back_left">15dp</dimen>
+    <dimen name="margin_toolbar_notification_icon_right">15dp</dimen>
 </resources>
