@@ -8,11 +8,7 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.networks.models.MyTournamentModel
 import com.dinosys.sportbook.networks.models.TournamentModel
 
-/**
- * Created by hanth on 06/06/2017.
- */
-
-class MyTournamentAdapter(private val mFakeData: MutableList<MyTournamentModel>, val activity: Activity) : RecyclerView.Adapter<MyTournamentViewHolder>() {
+class MyTournamentAdapter(private val mFakeData: List<MyTournamentModel>, val activity: Activity) : RecyclerView.Adapter<MyTournamentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyTournamentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_my_tournament, parent, false)
