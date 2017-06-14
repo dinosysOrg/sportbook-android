@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         Fabric.with(this, Crashlytics())
-        initViews()
         initListeners()
+        initViews()
     }
 
     private fun initViews() {

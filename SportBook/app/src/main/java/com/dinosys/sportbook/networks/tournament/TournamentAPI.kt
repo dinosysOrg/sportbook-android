@@ -2,18 +2,18 @@ package com.dinosys.sportbook.networks.tournament
 
 import com.dinosys.sportbook.networks.models.TournamentModel
 import io.reactivex.Observable
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.Path
 
 
 interface TournamentAPI {
 
     @GET("tournaments")
-    fun getTournaments(@Header("Access-Token") accessToken: String?,
-                @Header("Client") client: String?,
-                @Header("Expiry") expiry: String?,
-                @Header("Token-Type") tokenType: String?,
-                @Header("Uid") Uid: String?): Observable<Response<TournamentModel>>
+    fun getTournaments(): Observable<Response<TournamentModel>>
+
+    @GET("tournaments/{tournamentId}/teams")
+    fun signUpTournament(@Path("tournamentId") idTournament: Int?): Observable<Response<JSONObject>>
 
 }

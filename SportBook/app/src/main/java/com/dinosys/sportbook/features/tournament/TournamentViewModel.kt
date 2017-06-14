@@ -16,12 +16,6 @@ class TournamentViewModel @Inject constructor(val tournamentAPI: TournamentAPI) 
         if (authModel == null || authModel.header == null) {
             return Observable.error("authentication header data is null".throwable)
         }
-        val header = authModel.header!!
-        return tournamentAPI.getTournaments(header.get("Access-Token"),
-                header.get("Client"),
-                header.get("Expiry"),
-                header.get("Token-Type"),
-                header.get("Uid")
-                )
+        return tournamentAPI.getTournaments()
     }
 }

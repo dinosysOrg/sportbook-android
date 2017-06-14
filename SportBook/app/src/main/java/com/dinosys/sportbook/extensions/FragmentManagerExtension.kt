@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.extensions
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
@@ -13,8 +14,9 @@ import com.dinosys.sportbook.features.tournament.TournamentFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
 
-fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false) {
+fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {
     val fragment = createFragmentByTAG(tag)
+    fragment?.arguments = bundle
     when(fragment) {
         null -> Log.e("FragmentManager", "Can not create fragment by tag ${tag}")
         else -> attachFragment(containerId, fragment, tag, needFindInStack)
