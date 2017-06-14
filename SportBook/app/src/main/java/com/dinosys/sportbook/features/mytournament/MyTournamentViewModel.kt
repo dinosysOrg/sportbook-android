@@ -1,18 +1,28 @@
 package com.dinosys.sportbook.features.mytournament
 
-import com.dinosys.sportbook.networks.models.MyTournamentModel
+import android.content.Context
+import com.dinosys.sportbook.extensions.throwable
+import com.dinosys.sportbook.networks.models.AuthModel
+import com.dinosys.sportbook.networks.models.TournamentModel
+import com.dinosys.sportbook.networks.tournament.TournamentAPI
+import io.reactivex.Observable
+import retrofit2.Response
+import javax.inject.Inject
 
-class MyTournamentViewModel {
+class MyTournamentViewModel @Inject constructor(val tournamentAPI: TournamentAPI) {
 
-    open fun getMyTournamentList(): List<MyTournamentModel> {
-        val myTournaments = ArrayList<MyTournamentModel>();
-        for (i in 0..10) {
-            val model = MyTournamentModel("MyTournament " + i,
-                    "13/06/2016", "Registered", "13/06/2017",
-                    "http://www.insidepoolmag.com/wp-content/uploads/worldstraight2.jpg")
-            myTournaments.add(model)
+    fun getMyTournamentList(context: Context?, authModel: AuthModel?): Observable<Response<TournamentModel>> {
+
+        if (authModel == null || authModel.header == null) {
+            return Observable.error { "authentication header data is null ".throwable }
         }
 
-        return myTournaments
+        val header = authModel.header!!
+        return tournamentAPI.getTournaments(header.get("Access-Token"),
+                header.get("Client"),
+                header.get("Expiry"),
+                header.get("Token-Type"),
+                header.get("Uid"))
+
     }
 }
