@@ -1,12 +1,12 @@
 package com.dinosys.sportbook.features.signup
 
 import android.content.Intent
-import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.networks.models.AuthModel
+import com.dinosys.sportbook.utils.LogUtil
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -91,11 +91,11 @@ class SignUpFragment : BaseFragment() {
             }
 
             override fun onCancel() {
-                Log.v(TAG, "[FacebookCallback][onCancel]")
+                LogUtil.d(TAG, "[FacebookCallback][onCancel]")
             }
 
             override fun onError(exception: FacebookException) {
-                Log.e(TAG, "[FacebookCallback][onError]:" + exception.message)
+                LogUtil.e(TAG, "[FacebookCallback][onError]:" + exception.message)
             }
         }
     }

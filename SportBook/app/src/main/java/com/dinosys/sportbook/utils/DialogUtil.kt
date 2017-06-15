@@ -6,13 +6,13 @@ import android.content.Context
 object DialogUtil {
 
     fun showWarning(context:Context, title: String, content: String) {
-        val builder1 = AlertDialog.Builder(context)
-        builder1.setMessage(content)
-        builder1.setCancelable(true)
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage(content)
+        builder.setCancelable(true)
 
-        builder1.setPositiveButton(android.R.string.ok, { dialog, id -> dialog.cancel() })
+        builder.setPositiveButton(android.R.string.ok, { dialog, id -> dialog.cancel() })
 
-        val alertDialog = builder1.create()
+        val alertDialog = builder.create()
         alertDialog.show()
     }
 

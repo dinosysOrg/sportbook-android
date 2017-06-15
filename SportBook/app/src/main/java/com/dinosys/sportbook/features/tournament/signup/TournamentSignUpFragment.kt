@@ -2,7 +2,6 @@ package com.dinosys.sportbook.features.tournament.signup
 
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -15,6 +14,7 @@ import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.networks.models.SkillDataModel
 import com.dinosys.sportbook.utils.DialogUtil
+import com.dinosys.sportbook.utils.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_tournament_signup.*
@@ -89,15 +89,15 @@ class TournamentSignUpFragment : BaseFragment() {
                             renderSkillLayout()
                         }
                         else -> {
-                            Log.e(TAG, "Error loading skills: ${res.message()}")
+                            LogUtil.e(TAG, "Error loading skills: ${res.message()}")
                         }
                     }
-                }, { throwable ->  Log.e(TAG, "Error loading skills: ${throwable.message}") }))
+                }, { throwable ->  LogUtil.e(TAG, "Error loading skills: ${throwable.message}") }))
     }
 
     private fun renderSkillLayout(){
         if (skills == null) {
-            Log.e(TAG, "[renderSkillLayout] data is null")
+            LogUtil.e(TAG, "[renderSkillLayout] data is null")
             return
         }
         skills!!.forEach {

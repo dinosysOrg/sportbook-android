@@ -13,12 +13,13 @@ import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
+import com.dinosys.sportbook.utils.LogUtil
 
 fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {
     val fragment = createFragmentByTAG(tag)
     fragment?.arguments = bundle
     when(fragment) {
-        null -> Log.e("FragmentManager", "Can not create fragment by tag ${tag}")
+        null -> LogUtil.e("FragmentManager", "Can not create fragment by tag ${tag}")
         else -> attachFragment(containerId, fragment, tag, needFindInStack)
     }
 }
