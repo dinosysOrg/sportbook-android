@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvMyTournament"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:id="@+id/rlMyTournamentHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTournamentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:text="TournamentName" />
+
+        <TextView
+            android:id="@+id/tvRegisterStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTournamentName"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Registered" />
+
+        <TextView
+            android:id="@+id/tvRegisterTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Register Time" />
+
+        <TextView
+            android:id="@+id/tvTournamentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvRegisterTime"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Tournament Time" />
+
+        <ImageView
+            android:id="@+id/ivTournament"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/tvRegisterStatus"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
