@@ -21,40 +21,20 @@
                 android:text="@string/skill_set_description" />
 
             <RadioGroup
+                android:id="@+id/rgSkills"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Master" />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pro" />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Semi-Pro" />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Amatuer" />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Beginer" />
             </RadioGroup>
             <TextView
+                android:id="@+id/tvIndicateSkillLevelError"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/error_please_indicate_your_skill_level"
+                android:visibility="invisible"
                 />
             <Button
                 android:id="@+id/btnSkillSetSubmit"

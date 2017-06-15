@@ -11,7 +11,10 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_tournament"
+            />
 
         <TextView
             android:id="@+id/tvTournamentName"
@@ -21,6 +24,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btnSignUpTournament"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up_text" />

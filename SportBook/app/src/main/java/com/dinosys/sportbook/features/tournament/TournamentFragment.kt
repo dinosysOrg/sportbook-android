@@ -7,11 +7,9 @@ import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.ItemSpaceDecorator
-import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
-import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.TournamentDataModel
 import com.dinosys.sportbook.networks.models.TournamentModel
 import com.facebook.FacebookSdk.getApplicationContext
@@ -42,9 +40,8 @@ class TournamentFragment : BaseFragment(), OnTournamentListener {
     }
 
     private fun loadTournaments() {
-        val auth = AuthenticationManager.getUser(appContext!!)
         addDisposable(
-                tournamentApi.getTournaments(appContext, auth)
+                tournamentApi.getTournaments()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

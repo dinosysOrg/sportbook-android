@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.networks.tournament
 
+import com.dinosys.sportbook.networks.models.SkillModel
 import com.dinosys.sportbook.networks.models.TournamentModel
 import io.reactivex.Observable
 import org.json.JSONObject
@@ -15,5 +16,8 @@ interface TournamentAPI {
 
     @GET("tournaments/{tournamentId}/teams")
     fun signUpTournament(@Path("tournamentId") idTournament: Int?): Observable<Response<JSONObject>>
+
+    @GET("skills")
+    fun getSkills(): Observable<Response<SkillModel>>
 
 }

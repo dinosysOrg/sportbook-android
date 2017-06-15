@@ -1,21 +1,46 @@
 package com.dinosys.sportbook.features.tournament.signup
 
+import android.graphics.Color
+import android.support.v4.content.ContextCompat
+import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.RadioButton
 import com.dinosys.sportbook.R
+import com.dinosys.sportbook.application.SportbookApp
+import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.remove
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
+import com.dinosys.sportbook.networks.models.SkillDataModel
 import com.dinosys.sportbook.utils.DialogUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_tournament_signup.*
 import kotlinx.android.synthetic.main.item_tournament_signup_personal.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset_confirm.*
+import javax.inject.Inject
 
 class TournamentSignUpFragment : BaseFragment() {
 
     var signUpState: TournamentSignUpState? = null
 
+    var idTournament: Int? = null
+
+    var skills: ArrayList<SkillDataModel>? = null
+
+    var skillValueSelected: String? = null
+
+    @Inject
+    lateinit var tournamentSignUpApi: TournamentSignUpViewModel
+
     override fun inflateFromLayout(): Int  = R.layout.fragment_tournament_signup
+
+    override fun initViews() {
+        idTournament = this.arguments.getInt(TournamentOverviewFragment.KEY_ID)
+    }
 
     override fun initListeners() {
         btnSignUpPersonalContinue.setOnClickListener {
@@ -23,21 +48,68 @@ class TournamentSignUpFragment : BaseFragment() {
             showLayoutByCurrentSignUpState()
         }
         btnSkillSetSubmit.setOnClickListener {
-            signUpState = TournamentSignUpState.SKILL_SET_CONFIRMED_PAGE
-            showLayoutByCurrentSignUpState()
+            when (rgSkills.checkedRadioButtonId) {
+                -1 -> {
+                    tvIndicateSkillLevelError.visibility = View.VISIBLE
+                }
+                else -> {
+                    signUpState = TournamentSignUpState.SKILL_SET_CONFIRMED_PAGE
+                    showLayoutByCurrentSignUpState()
+                }
+            }
+
         }
         btnSkillSetConfirmSubmit.setOnClickListener {
             signUpState = TournamentSignUpState.FINISH_PAGE
             showLayoutByCurrentSignUpState()
         }
+        rgSkills.setOnCheckedChangeListener { group, checkedId ->
+                val rbChecked = rgSkills.findViewById(checkedId) as RadioButton
+                skillValueSelected = rbChecked.text.toString()
+                tvSkillLevelSelected.text = skillValueSelected
+                tvIndicateSkillLevelError.visibility = View.INVISIBLE
+        }
     }
 
     override fun initData() {
+        SportbookApp.tournamentComponent.inject(this)
         signUpState = TournamentSignUpState.PERSONAL_PAGE
+        loadSkills()
         showLayoutByCurrentSignUpState()
     }
 
-    fun showLayoutByCurrentSignUpState() {
+    private fun loadSkills() {
+        addDisposable(tournamentSignUpApi.getSkills()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ res ->
+                    when(res.code()) {
+                        in 200..300 -> {
+                            skills = res.body()?.embedded?.skills
+                            renderSkillLayout()
+                        }
+                        else -> {
+                            Log.e(TAG, "Error loading skills: ${res.message()}")
+                        }
+                    }
+                }, { throwable ->  Log.e(TAG, "Error loading skills: ${throwable.message}") }))
+    }
+
+    private fun renderSkillLayout(){
+        if (skills == null) {
+            Log.e(TAG, "[renderSkillLayout] data is null")
+            return
+        }
+        skills!!.forEach {
+            skill -> val rbSkill = RadioButton(rgSkills.context)
+            rbSkill.text = skill.name
+            rbSkill.setTextColor(Color.BLACK)
+            rgSkills.addView(rbSkill)
+            rbSkill.invalidate()
+        }
+    }
+
+    private fun showLayoutByCurrentSignUpState() {
         when (signUpState) {
             TournamentSignUpState.PERSONAL_PAGE -> {
                 showPersonalLayout()
@@ -56,32 +128,33 @@ class TournamentSignUpFragment : BaseFragment() {
         }
     }
 
-    fun updateViewForNextStep() {
+    private fun updateViewForNextStep() {
         btnStepRight.setBackgroundResource(R.drawable.background_tab_selected)
         btnStepRight.setTextColor(R.color.colorTabBackgroundSelected)
-        stepHorizontalLineRight.setBackgroundColor(R.color.colorTabBackgroundSelected)
+        stepHorizontalLineRight.setBackgroundColor(ContextCompat.getColor(appContext, R.color.colorTabBackgroundSelected))
     }
 
-    fun showPersonalLayout() {
+    private fun showPersonalLayout() {
         llPersonalContainer.visibility = VISIBLE
         llSkillSetContainer.visibility = GONE
         llSkillSetConfirmContainer.visibility = GONE
     }
 
-    fun showSkillSetLayout() {
+    private fun showSkillSetLayout() {
         llPersonalContainer.visibility = GONE
         llSkillSetContainer.visibility = VISIBLE
         llSkillSetConfirmContainer.visibility = GONE
     }
 
-    fun showSkillSetConfirmLayout() {
+    private fun showSkillSetConfirmLayout() {
         llPersonalContainer.visibility = GONE
         llSkillSetContainer.visibility = GONE
         llSkillSetConfirmContainer.visibility = VISIBLE
     }
 
     companion object {
-        val TAG = "TournamentSignUpFragment"
+        val TAG = "TSignUpFragment"
+        val KEY_ID = "id"
     }
 
 }
