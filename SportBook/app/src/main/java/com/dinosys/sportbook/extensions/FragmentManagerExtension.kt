@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import com.dinosys.sportbook.R
+import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
@@ -15,6 +16,7 @@ import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFrag
 import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
 import com.dinosys.sportbook.utils.LogUtil
 
+
 fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {
     val fragment = createFragmentByTAG(tag)
     fragment?.arguments = bundle
@@ -23,6 +25,7 @@ fun FragmentManager.openScreenByTag(tag:String, containerId: Int = R.id.ll_main_
         else -> attachFragment(containerId, fragment, tag, needFindInStack)
     }
 }
+
 
 private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
     when(tag) {
@@ -34,9 +37,9 @@ private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
         ForgotFragment.TAG -> ForgotFragment()
         TournamentOverviewFragment.TAG -> TournamentOverviewFragment()
         TournamentSignUpFragment.TAG -> TournamentSignUpFragment()
+        MyTournamentFragment.TAG -> MyTournamentFragment()
         else -> null
     }
-
 
 private fun FragmentManager.addNewFragment(containerId: Int, fragment: Fragment, tag: String) {
     val transaction = this.beginTransaction()
@@ -52,9 +55,9 @@ fun FragmentManager.remove(fragment: Fragment) {
 }
 
 private fun FragmentManager.attachFragment(containerId: Int,
-                                   fragment: Fragment,
-                                   tag: String,
-                                   needFindInStack: Boolean) {
+                                           fragment: Fragment,
+                                           tag: String,
+                                           needFindInStack: Boolean) {
     when (needFindInStack) {
         false -> {
             this.addNewFragment(containerId, fragment, tag)
