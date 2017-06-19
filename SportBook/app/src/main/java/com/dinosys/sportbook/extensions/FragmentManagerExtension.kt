@@ -5,12 +5,15 @@ import android.support.v4.app.FragmentManager
 import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
+import com.dinosys.sportbook.features.mytournament.opponent.OpponentFragment
+import com.dinosys.sportbook.features.mytournament.timetable.TimeTableFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
+import com.dinosys.sportbook.features.venue.TimeRankVenueFragment
 
 fun FragmentManager.openScreenByTag(tag: String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false) {
     val fragment = createFragmentByTAG(tag)
@@ -29,6 +32,9 @@ private fun FragmentManager.createFragmentByTAG(tag: String): Fragment? =
             TournamentFragment.TAG -> TournamentFragment()
             MyTournamentFragment.TAG -> MyTournamentFragment()
             ForgotFragment.TAG -> ForgotFragment()
+            TimeTableFragment.TAG -> TimeTableFragment()
+            TimeRankVenueFragment.TAG -> TimeRankVenueFragment()
+            OpponentFragment.TAG -> OpponentFragment()
             else -> null
         }
 
