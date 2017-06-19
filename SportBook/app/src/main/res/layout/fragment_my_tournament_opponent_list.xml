@@ -8,6 +8,7 @@
     <com.dinosys.sportbook.components.ToolbarView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:enableNotificationIcon="true"
         app:toolbarTitle="@string/title_mytournament_detail" />
 
     <TextView
