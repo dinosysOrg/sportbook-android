@@ -1,6 +1,7 @@
 package com.dinosys.sportbook.application
 
 import android.app.Application
+import com.dinosys.sportbook.di.AppModule
 import com.dinosys.sportbook.di.authentication.AuthenticationComponent
 import com.dinosys.sportbook.di.authentication.DaggerAuthenticationComponent
 import com.dinosys.sportbook.di.tournament.DaggerTournamentComponent
@@ -22,6 +23,8 @@ class SportbookApp: Application() {
         authComponent = DaggerAuthenticationComponent
                     .builder().build()
         tournamentComponent = DaggerTournamentComponent
-                .builder().build()
+                .builder()
+                .appModule(AppModule(this))
+                .build()
     }
 }

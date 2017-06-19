@@ -7,4 +7,6 @@
     <dimen name="height_tournament_list_divider">10dp</dimen>
     <dimen name="margin_toolbar_icon_back_left">15dp</dimen>
     <dimen name="margin_toolbar_notification_icon_right">15dp</dimen>
+    <dimen name="height_tab_step">30dp</dimen>
+    <dimen name="height_tab_step_line_horizontal">2dp</dimen>
 </resources>

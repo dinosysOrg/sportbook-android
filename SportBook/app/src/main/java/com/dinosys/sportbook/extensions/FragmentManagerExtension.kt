@@ -1,21 +1,25 @@
 package com.dinosys.sportbook.extensions
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import com.dinosys.sportbook.R
-import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
+import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
+import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
+import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
+import com.dinosys.sportbook.utils.LogUtil
 
-fun FragmentManager.openScreenByTag(tag: String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false) {
+fun FragmentManager.openScreenByTag(tag: String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {
     val fragment = createFragmentByTAG(tag)
+    fragment?.arguments = bundle
     when (fragment) {
-        null -> Log.e("FragmentManager", "Can not create fragment by tag ${tag}")
+        null -> LogUtil.e("FragmentManager", "Can not create fragment by tag ${tag}")
         else -> attachFragment(containerId, fragment, tag, needFindInStack)
     }
 }
@@ -28,6 +32,8 @@ private fun FragmentManager.createFragmentByTAG(tag: String): Fragment? =
             ProfileFragment.TAG -> ProfileFragment()
             TournamentFragment.TAG -> TournamentFragment()
             ForgotFragment.TAG -> ForgotFragment()
+            TournamentOverviewFragment.TAG -> TournamentOverviewFragment()
+            TournamentSignUpFragment.TAG -> TournamentSignUpFragment()
             MyTournamentFragment.TAG -> MyTournamentFragment()
             else -> null
         }

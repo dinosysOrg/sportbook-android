@@ -1,7 +1,5 @@
 package com.dinosys.sportbook.features.signin
 
-import android.os.Bundle
-import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.appContext
@@ -22,10 +20,8 @@ class ForgotFragment : BaseFragment() {
 
     override fun inflateFromLayout() = R.layout.fragment_forgot
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initData() {
         SportbookApp.authComponent.inject(this)
-        initListeners()
     }
 
     override fun initListeners() {
