@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+<<<<<<< HEAD
     <style name="styleButtonStepSelected">
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">25dp</item>
@@ -52,6 +53,8 @@
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
+=======
+>>>>>>> 356658dec98f7bc40134199127dadd121e6683a1
     <style name="styleMyTournamentDetailItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

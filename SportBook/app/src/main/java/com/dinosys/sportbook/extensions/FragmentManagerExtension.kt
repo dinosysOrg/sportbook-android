@@ -13,9 +13,12 @@ import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
+<<<<<<< HEAD
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
 import com.dinosys.sportbook.utils.LogUtil
+=======
+>>>>>>> 356658dec98f7bc40134199127dadd121e6683a1
 import com.dinosys.sportbook.features.venue.TimeRankVenueFragment
 
 fun FragmentManager.openScreenByTag(tag: String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {
@@ -35,9 +38,12 @@ private fun FragmentManager.createFragmentByTAG(tag: String): Fragment? =
             ProfileFragment.TAG -> ProfileFragment()
             TournamentFragment.TAG -> TournamentFragment()
             ForgotFragment.TAG -> ForgotFragment()
+<<<<<<< HEAD
             TournamentOverviewFragment.TAG -> TournamentOverviewFragment()
             TournamentSignUpFragment.TAG -> TournamentSignUpFragment()
             MyTournamentFragment.TAG -> MyTournamentFragment()
+=======
+>>>>>>> 356658dec98f7bc40134199127dadd121e6683a1
             TimeTableFragment.TAG -> TimeTableFragment()
             TimeRankVenueFragment.TAG -> TimeRankVenueFragment()
             OpponentFragment.TAG -> OpponentFragment()
