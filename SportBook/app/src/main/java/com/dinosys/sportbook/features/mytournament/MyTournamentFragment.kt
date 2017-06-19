@@ -28,7 +28,7 @@ class MyTournamentFragment : BaseFragment() {
         loadMyTournaments()
     }
 
-    fun initViews() {
+    override fun initViews() {
         val heightDivider = resources.getDimensionPixelOffset(R.dimen.height_tournament_list_divider)
         val verticalSpacing = ItemSpaceDecorator(left = heightDivider, right = heightDivider,
                 top = heightDivider, bottom = heightDivider)
@@ -38,9 +38,8 @@ class MyTournamentFragment : BaseFragment() {
 
 
     fun loadMyTournaments() {
-        val auth = AuthenticationManager.getUser(appContext!!)
         addDisposable(
-                tournamentApi.getMyTournamentList(appContext, auth)
+                tournamentApi.getMyTournamentList()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
