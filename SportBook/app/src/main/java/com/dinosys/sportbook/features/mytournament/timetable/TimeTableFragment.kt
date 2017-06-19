@@ -16,7 +16,7 @@ class TimeTableFragment : BaseFragment() {
         initViews()
     }
 
-    fun initViews() {
+    override fun initViews() {
         rvTimeTable.adapter = TimeTableAdapter(TimeTableViewModel().sampleList)
         rvTimeTable.layoutManager = LinearLayoutManager(context)
     }
