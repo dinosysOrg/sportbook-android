@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.dinosys.sportbook.components.ToolbarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enableBackIcon="true"
+        app:enableNotificationIcon="false"
+        app:toolbarTitle="@string/sign_up_text" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnStepLeft"
+            style="@style/styleButtonStepSelected"
+            android:text="1" />
+
+        <View
+            android:id="@+id/stepHorizontalLineLeft"
+            style="@style/styleStepHorizontalLineSelected" />
+
+        <View
+            android:id="@+id/stepHorizontalLineRight"
+            style="@style/styleStepHorizontalLineUnselected" />
+
+        <Button
+            android:id="@+id/btnStepRight"
+            style="@style/styleButtonStepUnSelected"
+            android:text="2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPersonalContainer"
+        style="@style/styleTournamentBlock">
+
+        <include layout="@layout/item_tournament_signup_personal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSkillSetContainer"
+        style="@style/styleTournamentBlock">
+
+        <include layout="@layout/item_tournament_signup_skillset" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSkillSetConfirmContainer"
+        style="@style/styleTournamentBlock">
+
+        <include layout="@layout/item_tournament_signup_skillset_confirm" />
+
+    </LinearLayout>
+</LinearLayout>

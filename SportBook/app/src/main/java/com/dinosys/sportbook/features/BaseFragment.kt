@@ -17,6 +17,13 @@ abstract class BaseFragment : Fragment() {
         return inflater!!.inflate(inflateFromLayout(), container, false)
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+        initListeners()
+        initData()
+    }
+
     abstract fun inflateFromLayout() : Int
 
     override fun onDestroy() {
@@ -28,7 +35,15 @@ abstract class BaseFragment : Fragment() {
         composite.add(disposable)
     }
 
+    open fun initViews() {
+
+    }
+
     open fun initListeners() {
+
+    }
+
+    open fun initData() {
 
     }
 

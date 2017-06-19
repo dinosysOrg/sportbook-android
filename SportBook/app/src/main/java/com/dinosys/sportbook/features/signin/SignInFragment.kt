@@ -2,9 +2,6 @@ package com.dinosys.sportbook.features.signin
 
 import android.content.Intent
 import android.graphics.Paint
-import android.os.Bundle
-import android.util.Log
-import android.view.View
 import com.dinosys.sportbook.MainActivity
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
@@ -15,6 +12,7 @@ import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.AuthModel
+import com.dinosys.sportbook.utils.LogUtil
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -39,16 +37,13 @@ class SignInFragment : BaseFragment() {
 
     private var mCallbackManager: CallbackManager? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        SportbookApp.authComponent.inject(this)
-        initFacebookLoginConfig()
-        initViews()
-        initListeners()
+    override fun initViews() {
+        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
     }
 
-    fun initViews() {
-        tvForgotPassword.setPaintFlags(tvForgotPassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+    override fun initData() {
+        SportbookApp.authComponent.inject(this)
+        initFacebookLoginConfig()
     }
 
     override fun initListeners() {
@@ -108,12 +103,12 @@ class SignInFragment : BaseFragment() {
         }.subscribeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     e ->
-                    Log.e(TAG, e.accessToken.token)
+                    LogUtil.e(TAG, e.accessToken.token)
                     signInApi.signInWithFacebook(e.accessToken.token)
                             .subscribeOn(Schedulers.newThread())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ e -> Log.d(TAG, e.toString()) })
+                .subscribe({ e -> LogUtil.d(TAG, e.toString()) })
         addDisposable(disposable)
     }
 

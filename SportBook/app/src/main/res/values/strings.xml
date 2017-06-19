@@ -22,4 +22,17 @@
     <string name="error_signup_failure_text">Sign up failure.</string>
     <string name="icon_back">&#xf104;</string>
     <string name="icon_notification">&#xf0a2;</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="continue_text">Continue</string>
+    <string name="name_text">Name</string>
+    <string name="phone_number_text">Phone number</string>
+    <string name="address_text">Address</string>
+    <string name="date_of_birth_text">Date of birth</string>
+    <string name="club_text">Club</string>
+    <string name="skill_set_description">Notice: Your level will be evaluated after your match in tournament.</string>
+    <string name="pick_your_skill_level_text">Pick your skill level</string>
+    <string name="submit_text">Submit</string>
+    <string name="error_please_indicate_your_skill_level">Please indicate your skill level</string>
+    <string name="error_your_payment_is_not_actived">My tournament can not be actived until your payment is confirmed. Please check with operation for more information</string>
+    <string name="warning_title">Warning</string>
 </resources>

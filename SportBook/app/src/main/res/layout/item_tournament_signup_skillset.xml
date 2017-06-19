@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/skillSetInputContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pick_your_skill_level_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/skill_set_description" />
+
+            <RadioGroup
+                android:id="@+id/rgSkills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            </RadioGroup>
+            <TextView
+                android:id="@+id/tvIndicateSkillLevelError"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/error_please_indicate_your_skill_level"
+                android:visibility="invisible"
+                />
+            <Button
+                android:id="@+id/btnSkillSetSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/submit_text"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
+        </LinearLayout>
+
+</ScrollView>

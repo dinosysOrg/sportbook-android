@@ -8,4 +8,48 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="styleButtonStepSelected">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@drawable/background_tab_selected</item>
+    </style>
+
+    <style name="styleButtonStepUnSelected">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:textColor">@color/colorTabTextUnSelected</item>
+        <item name="android:background">@drawable/background_tab_unselected</item>
+    </style>
+
+    <style name="styleStepHorizontalLineSelected">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/colorTabBackgroundSelected</item>
+    </style>
+
+    <style name="styleStepHorizontalLineUnselected">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/colorTabBackgroundUnSelected</item>
+    </style>
+
+    <style name="styleEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@color/colorTabBackgroundUnSelected</item>
+        <item name="android:background">@drawable/background_edit_text</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="styleTournamentBlock">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
 </resources>
