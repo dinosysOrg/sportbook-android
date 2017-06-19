@@ -12,6 +12,7 @@
     <string name="error_login_failure_text">Login failure.</string>
     <string name="title_tournament">Tournament</string>
     <string name="title_mytournament">My Tournament</string>
+    <string name="title_mytournament_detail">My Tournament</string>
     <string name="title_statistic">Statistic</string>
     <string name="title_profile">Profile</string>
     <string name="sportbook_title">Sportbook</string>
