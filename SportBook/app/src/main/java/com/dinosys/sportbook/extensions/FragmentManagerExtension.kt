@@ -15,7 +15,7 @@ import com.dinosys.sportbook.features.tournament.StatisticFragment
 import com.dinosys.sportbook.features.tournament.TournamentFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.features.tournament.signup.TournamentSignUpFragment
-import com.dinosys.sportbook.features.venue.TimeRankVenueFragment
+import com.dinosys.sportbook.features.mytournament.venue.TimeRankVenueFragment
 import com.dinosys.sportbook.utils.LogUtil
 
 fun FragmentManager.openScreenByTag(tag: String, containerId: Int = R.id.ll_main_container, needFindInStack: Boolean = false, bundle: Bundle? = null) {

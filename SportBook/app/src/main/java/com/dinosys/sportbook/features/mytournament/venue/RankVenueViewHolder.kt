@@ -1,4 +1,4 @@
-package com.dinosys.sportbook.features.venue
+package com.dinosys.sportbook.features.mytournament.venue
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

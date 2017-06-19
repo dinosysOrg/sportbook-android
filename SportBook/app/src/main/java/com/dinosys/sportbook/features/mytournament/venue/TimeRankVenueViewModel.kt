@@ -1,4 +1,4 @@
-package com.dinosys.sportbook.features.venue
+package com.dinosys.sportbook.features.mytournament.venue
 
 import com.dinosys.sportbook.networks.models.RankVenueModel
 import com.dinosys.sportbook.networks.models.TimeVenueModel
