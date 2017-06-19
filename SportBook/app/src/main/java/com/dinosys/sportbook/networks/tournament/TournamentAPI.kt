@@ -15,6 +15,9 @@ interface TournamentAPI {
     @GET("tournaments")
     fun getTournaments(): Observable<Response<TournamentModel>>
 
+    @GET("tournaments/my-tournaments")
+    fun getMyTournaments(): Observable<Response<TournamentModel>>
+
     @GET("tournaments/{tournamentId}/teams")
     fun signUpTournament(@Path("tournamentId") idTournament: Int?): Observable<Response<JSONObject>>
 

@@ -1,17 +1,20 @@
 package com.dinosys.sportbook.features.tournament.signup
 
 import android.graphics.Color
+import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.EditText
 import android.widget.RadioButton
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
-import com.dinosys.sportbook.extensions.appContext
-import com.dinosys.sportbook.extensions.remove
+import com.dinosys.sportbook.components.PickerDialog
+import com.dinosys.sportbook.extensions.*
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
+import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.SkillDataModel
 import com.dinosys.sportbook.utils.DialogUtil
 import com.dinosys.sportbook.utils.LogUtil
@@ -21,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_tournament_signup.*
 import kotlinx.android.synthetic.main.item_tournament_signup_personal.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset_confirm.*
+import org.json.JSONArray
 import javax.inject.Inject
 
 class TournamentSignUpFragment : BaseFragment() {
@@ -33,6 +37,12 @@ class TournamentSignUpFragment : BaseFragment() {
 
     var skillValueSelected: String? = null
 
+    var cities: Array<String>? = null
+
+    var districtes: JSONArray? = null
+
+    var cityIndexSelected = UNSELECTED_CITY_INDEX
+
     @Inject
     lateinit var tournamentSignUpApi: TournamentSignUpViewModel
 
@@ -44,9 +54,12 @@ class TournamentSignUpFragment : BaseFragment() {
 
     override fun initListeners() {
         btnSignUpPersonalContinue.setOnClickListener {
-            signUpState = TournamentSignUpState.SKILL_SET_PAGE
-            showLayoutByCurrentSignUpState()
+            if (checkValidInputData()) {
+                signUpState = TournamentSignUpState.SKILL_SET_PAGE
+                showLayoutByCurrentSignUpState()
+            }
         }
+
         btnSkillSetSubmit.setOnClickListener {
             when (rgSkills.checkedRadioButtonId) {
                 -1 -> {
@@ -59,23 +72,146 @@ class TournamentSignUpFragment : BaseFragment() {
             }
 
         }
+
         btnSkillSetConfirmSubmit.setOnClickListener {
             signUpState = TournamentSignUpState.FINISH_PAGE
             showLayoutByCurrentSignUpState()
         }
+
         rgSkills.setOnCheckedChangeListener { group, checkedId ->
                 val rbChecked = rgSkills.findViewById(checkedId) as RadioButton
                 skillValueSelected = rbChecked.text.toString()
                 tvSkillLevelSelected.text = skillValueSelected
                 tvIndicateSkillLevelError.visibility = View.INVISIBLE
         }
+
+        etCity.setOnClickListener {
+            val dialog = PickerDialog(activity)
+            dialog.title = getString(R.string.title_select_the_city)
+            dialog.displayedValues = cities
+
+            dialog.pickerDialogListener = object:PickerDialog.PickerDialogListener {
+                override fun onItemSelected(index: Int, string: String) {
+                    cityIndexSelected = index
+                    etCity.text = string.editTable
+                }
+            }
+
+            dialog.show()
+        }
+
+        etDistrict.setOnClickListener { v ->
+            val selectedCity = etCity.text.toString()
+
+            if (selectedCity.isEmpty()) {
+                return@setOnClickListener
+            }
+
+            val dialog = PickerDialog(activity)
+            dialog.title = getString(R.string.title_select_your_district)
+            var jsonDistrictArray = districtes!!.getJSONObject(cityIndexSelected).getJSONArray("districts")
+            dialog.displayedValues = Array(jsonDistrictArray.length(), { index-> jsonDistrictArray.getString(index)})
+
+            dialog.pickerDialogListener = object:PickerDialog.PickerDialogListener {
+                override fun onItemSelected(index: Int, string: String) {
+                    etDistrict.text = string.editTable
+                }
+            }
+
+            dialog.show()
+        }
     }
 
     override fun initData() {
         SportbookApp.tournamentComponent.inject(this)
         signUpState = TournamentSignUpState.PERSONAL_PAGE
+
+        val user = AuthenticationManager.getUser(appContext!!)
+        etEmail.text = user?.data?.email?.editTable
+        loadCities()
         loadSkills()
         showLayoutByCurrentSignUpState()
+    }
+
+    private fun loadCities() {
+        tournamentSignUpApi.getCities(appContext!!)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.newThread())
+                .subscribe({
+                    jsonArray ->
+                    if (jsonArray != null) {
+                        districtes = jsonArray
+                        cities = Array(districtes!!.length(), { index -> districtes!!.getJSONObject(index).getString("name") })
+                    }
+                }, {
+                    error -> LogUtil.e(TAG, "[loadCities] error=${error.message}")
+                }).addToFragment(this)
+    }
+
+    private fun checkValidInputData(): Boolean {
+        if (!isValidFirstName()) {
+            return false
+        }
+        if (!isValidLastName()) {
+            return false
+        }
+        if (!isValidPhoneNumber()) {
+            return false
+        }
+        if (!isValidCity()) {
+            return false
+        }
+        if (!isValidDistrict()) {
+            return false
+        }
+        return true
+    }
+
+    private fun isValidFirstName(): Boolean {
+        return isNotEmptyInput(ipFirstName, etFirstName, R.string.error_please_fill_in_required_information_text)
+    }
+
+    private fun isValidLastName(): Boolean {
+       return isNotEmptyInput(ipLastName, etLastName, R.string.error_please_fill_in_required_information_text)
+    }
+
+    private fun isValidPhoneNumber(): Boolean {
+        val isNotEmptyInput = isNotEmptyInput(ipPhoneNumber, etPhoneNumber, R.string.error_please_fill_in_required_information_text)
+        if (!isNotEmptyInput) {
+            return false
+        }
+
+        val phone = etPhoneNumber.text.toString()
+        val isValidPhoneNumber = android.util.Patterns.PHONE.matcher(phone).matches()
+        if (!isValidPhoneNumber) {
+            setErrorForEditText(ipPhoneNumber, etPhoneNumber, R.string.error_phone_invalid_text)
+            return false
+        }
+        ipPhoneNumber.isErrorEnabled = false
+        return true
+    }
+
+    private fun isValidCity(): Boolean {
+        return isNotEmptyInput(ipCity, etCity, R.string.error_please_fill_in_required_information_text)
+    }
+
+    private fun isValidDistrict(): Boolean {
+        return isNotEmptyInput(ipDistrict, etDistrict, R.string.error_please_fill_in_required_information_text)
+    }
+
+    private fun isNotEmptyInput(inputLayout: TextInputLayout, editText: EditText, resStringText: Int): Boolean {
+        val firstName = editText.text.toString()
+        if (firstName.isEmpty()) {
+            setErrorForEditText(inputLayout, editText, resStringText)
+            return false
+        }
+        inputLayout.isErrorEnabled = false
+        return true
+    }
+
+    private fun setErrorForEditText(inputLayout: TextInputLayout, editText: EditText, resStringText: Int) {
+        inputLayout.error = getString(resStringText)
+        editText.requestFocus()
     }
 
     private fun loadSkills() {
@@ -155,6 +291,7 @@ class TournamentSignUpFragment : BaseFragment() {
     companion object {
         val TAG = "TSignUpFragment"
         val KEY_ID = "id"
+        val UNSELECTED_CITY_INDEX = -1
     }
 
 }

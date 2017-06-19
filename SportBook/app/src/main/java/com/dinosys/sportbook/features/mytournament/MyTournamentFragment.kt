@@ -1,15 +1,13 @@
 package com.dinosys.sportbook.features.mytournament
 
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import com.dinosys.sportbook.R
+import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.ItemSpaceDecorator
-import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.features.BaseFragment
-import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.TournamentModel
+import com.dinosys.sportbook.utils.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_my_tournament.*
@@ -22,12 +20,6 @@ class MyTournamentFragment : BaseFragment() {
     @Inject
     lateinit var tournamentApi: MyTournamentViewModel
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        loadMyTournaments()
-    }
-
     override fun initViews() {
         val heightDivider = resources.getDimensionPixelOffset(R.dimen.height_tournament_list_divider)
         val verticalSpacing = ItemSpaceDecorator(left = heightDivider, right = heightDivider,
@@ -36,6 +28,10 @@ class MyTournamentFragment : BaseFragment() {
         rvMyTournament.addItemDecoration(verticalSpacing)
     }
 
+    override fun initData() {
+        SportbookApp.tournamentComponent.inject(this)
+        loadMyTournaments()
+    }
 
     fun loadMyTournaments() {
         addDisposable(
@@ -50,13 +46,12 @@ class MyTournamentFragment : BaseFragment() {
                                             val tournament = e.body()
                                             fillDataToAdapter(tournament)
                                         }
-                                        else -> Log.e(TAG, e.message())
+                                        else -> LogUtil.e(TAG, e.message())
                                     }
                                 },
-                                { t -> Log.e(TAG, "Error: ${t.message}") }
+                                { t -> LogUtil.e(TAG, "Error: ${t.message}") }
                         )
         )
-
     }
 
     private fun fillDataToAdapter(tournaments: TournamentModel?) {
