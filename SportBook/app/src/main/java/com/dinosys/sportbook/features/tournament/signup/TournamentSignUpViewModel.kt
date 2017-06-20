@@ -5,8 +5,6 @@ import com.dinosys.sportbook.extensions.readJsonFromAsset
 import com.dinosys.sportbook.networks.models.SkillModel
 import com.dinosys.sportbook.networks.tournament.TournamentAPI
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.json.JSONArray
 import org.json.JSONException
 import retrofit2.Response

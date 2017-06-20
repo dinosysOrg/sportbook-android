@@ -2,15 +2,13 @@ package com.dinosys.sportbook.components
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
-import android.support.v7.app.AppCompatDialog
-import android.view.Window
-import com.dinosys.sportbook.R
-import android.view.WindowManager
 import android.graphics.Point
-import android.os.Build.VERSION_CODES
 import android.os.Build
-import android.util.Log
+import android.os.Build.VERSION_CODES
+import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
+import com.dinosys.sportbook.R
 import kotlinx.android.synthetic.main.dialog_picker.*
 
 

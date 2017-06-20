@@ -3,7 +3,6 @@ package com.dinosys.sportbook.extensions
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment

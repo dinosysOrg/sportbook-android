@@ -11,7 +11,10 @@ import android.widget.RadioButton
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.PickerDialog
-import com.dinosys.sportbook.extensions.*
+import com.dinosys.sportbook.extensions.addToFragment
+import com.dinosys.sportbook.extensions.appContext
+import com.dinosys.sportbook.extensions.editTable
+import com.dinosys.sportbook.extensions.remove
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
