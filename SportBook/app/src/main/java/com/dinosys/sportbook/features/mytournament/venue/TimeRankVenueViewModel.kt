@@ -24,5 +24,4 @@ class TimeRankVenueViewModel() {
             items.add(RankVenueModel("HIJ Venue", "13km-40mins"))
             return items
         }
-
 }

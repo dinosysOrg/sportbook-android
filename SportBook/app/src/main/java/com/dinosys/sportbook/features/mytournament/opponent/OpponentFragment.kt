@@ -5,12 +5,9 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_tournament_opponent_list.*
 
-
 class OpponentFragment : BaseFragment() {
 
     override fun inflateFromLayout(): Int = R.layout.fragment_my_tournament_opponent_list
-
-
 
     override fun initViews() {
         rvOpponentsList.adapter = OpponentAdapter(OpponentViewModel().sampleOpponents)
@@ -23,5 +20,6 @@ class OpponentFragment : BaseFragment() {
 
     companion object{
         val TAG: String = "OpponentFragment"
+        val KEY_ID: String ="idTournament"
     }
 }

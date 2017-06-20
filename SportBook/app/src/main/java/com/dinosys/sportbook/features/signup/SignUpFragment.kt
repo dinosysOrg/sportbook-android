@@ -35,7 +35,6 @@ class SignUpFragment : BaseFragment() {
         initFacebookLoginConfig()
     }
 
-
     override fun initListeners() {
         super.initListeners()
         val btnSignUpDisposable = RxView.clicks(btnSignUp)

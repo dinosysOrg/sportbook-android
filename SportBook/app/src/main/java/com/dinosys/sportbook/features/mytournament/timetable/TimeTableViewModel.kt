@@ -5,15 +5,14 @@ import java.util.*
 
 class TimeTableViewModel {
 
-    val sampleList: ArrayList<Any>
+    val sampleList: ArrayList<TimeTableModel>
         get() {
-            val items = ArrayList<Any>()
-            items.add("This week")
-            for (i in 0..4) {
-                items.add(TimeTableModel("Monday", "A1 match with Le Minh A", "@ABC Venue", "7:00pm - 9:00pm"))
-            }
+            val items = ArrayList<TimeTableModel>()
+            items.add(TimeTableModel("This week", null, null, null, null, TimeTableModel.HEADER_TYPE))
+            items.add(TimeTableModel(null, "Saturday", "A1 match with Le Minh A", "@ABC Venue", "7:00pm - 9:00pm", TimeTableModel.TIMETABLE_TYPE))
+            items.add(TimeTableModel(null, "Saturday", "A1 match with Tran Minh B", "@ABC Venue", "6:00pm - 9:00pm", TimeTableModel.TIMETABLE_TYPE))
+            items.add(TimeTableModel(null, "Friday", "A1 match with Pham van E", "@ABC Venue", "7:00pm - 7:00pm", TimeTableModel.TIMETABLE_TYPE))
+
             return items
         }
-
-
 }

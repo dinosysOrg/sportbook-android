@@ -52,14 +52,12 @@
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
-=======
->>>>>>> 356658dec98f7bc40134199127dadd121e6683a1
     <style name="styleMyTournamentDetailItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_weight">1</item>
     </style>
 

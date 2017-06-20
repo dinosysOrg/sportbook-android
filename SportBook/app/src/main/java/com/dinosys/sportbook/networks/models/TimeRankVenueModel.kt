@@ -18,3 +18,4 @@ data class RankVenueModel(
         @SerializedName("venue_name") val venue_name: String,
         @SerializedName("venue_distance_time") val venue_distance_time: String
 )
+

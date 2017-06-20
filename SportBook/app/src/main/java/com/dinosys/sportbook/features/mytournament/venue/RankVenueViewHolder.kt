@@ -24,5 +24,4 @@ class RankVenueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             items.add("4")
             return items;
         }
-
 }

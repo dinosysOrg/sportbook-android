@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.networks.models.TimeVenueModel
-import kotlinx.android.synthetic.main.item_my_tournament_time_venue.view.*
+import kotlinx.android.synthetic.main.item_my_tournament_input_time.view.*
 
-class TimeVenueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class InputTimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindView(timeVenueModel: TimeVenueModel, position: Int) = with(itemView) {
         if (timeVenueModel.isHeader) {
@@ -95,6 +95,5 @@ class TimeVenueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         }
     }
-
 
 }

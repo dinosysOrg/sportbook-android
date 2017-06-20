@@ -9,8 +9,6 @@ class TimeRankVenueFragment : BaseFragment() {
 
     override fun inflateFromLayout(): Int = R.layout.fragment_my_tournament_time_rank_venue_change
 
-
-
     override fun initViews() {
         rvTimeVenue.adapter = TimeRankVenueAdapter(TimeRankVenueViewModel().sampleList)
         rvTimeVenue.layoutManager = LinearLayoutManager(context)
@@ -24,9 +22,9 @@ class TimeRankVenueFragment : BaseFragment() {
 
     }
 
-    companion object{
+    companion object {
         val TAG: String = "TimeRankVenueFragment"
+        val KEY_ID: String = "idTournament"
     }
-
 
 }

@@ -1,12 +1,14 @@
 package com.dinosys.sportbook.networks.models
 
-import com.google.gson.annotations.SerializedName
+class TimeTableModel(val header_name: String?, val day:String?, val match_name: String?, val venue: String?, val match_time: String?, private val mType: Int) {
 
-/**
- * Created by hanth on 16/06/2017.
- */
+    fun getmType(): Int {
+        return mType
+    }
 
-data class TimeTableModel(@SerializedName("day") val day: String?,
-                          @SerializedName("match_name") val match_name: String?,
-                          @SerializedName("venue") val venue: String?,
-                          @SerializedName("match_time") val match_time: String?)
+    companion object {
+        val HEADER_TYPE = 0
+        val TIMETABLE_TYPE = 1
+    }
+
+}

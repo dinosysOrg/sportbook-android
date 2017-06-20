@@ -14,7 +14,4 @@ class TimeTableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         tvVenue.text = timeTableModel.venue
     }
 
-
-
-
 }
