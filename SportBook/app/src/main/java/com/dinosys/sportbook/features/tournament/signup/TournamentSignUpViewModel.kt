@@ -7,6 +7,7 @@ import com.dinosys.sportbook.networks.tournament.TournamentAPI
 import io.reactivex.Observable
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
@@ -15,6 +16,17 @@ class TournamentSignUpViewModel @Inject constructor(val tournamentAPI: Tournamen
 
     fun getSkills() : Observable<Response<SkillModel>> {
         return tournamentAPI.getSkills()
+    }
+
+    fun signUpTournament(idTournament: Int,
+                         name: String,
+                         birthday: String,
+                         phoneNumber: String,
+                         address: String,
+                         club: String): Observable<Response<JSONObject>>  {
+
+        return tournamentAPI.signUpTournament(idTournament = idTournament, name = name,
+                birthday = birthday, phoneNumber = phoneNumber, address = address, club = club)
     }
 
     fun getCities(context: Context): Observable<JSONArray>  = Observable.create<JSONArray> {

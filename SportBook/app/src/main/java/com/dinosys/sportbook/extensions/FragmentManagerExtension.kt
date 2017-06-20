@@ -53,6 +53,27 @@ fun FragmentManager.remove(fragment: Fragment) {
             .commit()
 }
 
+fun FragmentManager.popBackStack(numberOfFragment: Int) {
+    if (numberOfFragment <= 0) {
+        LogUtil.e("FragmentManager", "[removeTopFragment] numbers <= 0")
+        return
+    }
+
+    if (numberOfFragment > fragments.size) {
+        LogUtil.e("FragmentManager", "[removeTopFragment] numbers > curentSizeBackStack")
+        return
+    }
+
+    val transaction = this.beginTransaction()
+
+    val fromPos = fragments.size - numberOfFragment
+    for (currentPos in fromPos until fragments.size) {
+        transaction.remove(fragments[currentPos])
+    }
+
+    transaction.commit()
+}
+
 private fun FragmentManager.attachFragment(containerId: Int,
                                            fragment: Fragment,
                                            tag: String,

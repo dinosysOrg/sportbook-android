@@ -81,6 +81,8 @@
             <EditText
                 android:id="@+id/etBirtday"
                 style="@style/styleEditText"
+                android:focusable="false"
+                android:inputType="none"
                 android:hint="@string/date_of_birth_text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -89,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:id="@+id/ebClub"
+                android:id="@+id/etClub"
                 style="@style/styleEditText"
                 android:hint="@string/club_text" />
         </android.support.design.widget.TextInputLayout>

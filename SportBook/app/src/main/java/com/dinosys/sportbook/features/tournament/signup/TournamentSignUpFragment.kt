@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.features.tournament.signup
 
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
@@ -11,16 +12,16 @@ import android.widget.RadioButton
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.PickerDialog
-import com.dinosys.sportbook.extensions.addToFragment
-import com.dinosys.sportbook.extensions.appContext
-import com.dinosys.sportbook.extensions.editTable
-import com.dinosys.sportbook.extensions.remove
+import com.dinosys.sportbook.extensions.*
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.SkillDataModel
+import com.dinosys.sportbook.utils.DateUtil
 import com.dinosys.sportbook.utils.DialogUtil
 import com.dinosys.sportbook.utils.LogUtil
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_tournament_signup.*
@@ -28,6 +29,9 @@ import kotlinx.android.synthetic.main.item_tournament_signup_personal.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset_confirm.*
 import org.json.JSONArray
+import org.json.JSONObject
+import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
 
 class TournamentSignUpFragment : BaseFragment() {
@@ -76,10 +80,24 @@ class TournamentSignUpFragment : BaseFragment() {
 
         }
 
-        btnSkillSetConfirmSubmit.setOnClickListener {
-            signUpState = TournamentSignUpState.FINISH_PAGE
-            showLayoutByCurrentSignUpState()
-        }
+        RxView.clicks(btnSkillSetConfirmSubmit)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .switchMap {
+                    val name = "${etFirstName.text.toString()} ${etLastName.text.toString()}"
+                    val birtday = etBirtday.text.toString()
+                    val phoneNumber = etPhoneNumber.text.toString()
+                    val address = "${etCity.text.toString()} ${etDistrict.text.toString()}"
+                    val club = etClub.text.toString()
+
+                    tournamentSignUpApi.signUpTournament(idTournament!!, name, birtday, phoneNumber, address, club)
+                            .subscribeOn(Schedulers.newThread())
+                            .onErrorResumeNext { t: Throwable? -> onTournamentSignUpError(t) }
+                }.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onTournamentSignUpSuccessfully() },
+                        { t -> onTournamentSignUpError(t) }
+                )
+                .addToFragment(this)
 
         rgSkills.setOnCheckedChangeListener { group, checkedId ->
                 val rbChecked = rgSkills.findViewById(checkedId) as RadioButton
@@ -103,7 +121,7 @@ class TournamentSignUpFragment : BaseFragment() {
             dialog.show()
         }
 
-        etDistrict.setOnClickListener { v ->
+        etDistrict.setOnClickListener {
             val selectedCity = etCity.text.toString()
 
             if (selectedCity.isEmpty()) {
@@ -123,6 +141,26 @@ class TournamentSignUpFragment : BaseFragment() {
 
             dialog.show()
         }
+
+        etBirtday.setOnClickListener {
+            val birtdaySetListener = OnBirtdayDateSetListener(etBirtday, DateUtil.SHORT_PATTERN)
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(etBirtday.context, birtdaySetListener,
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)).show()
+
+        }
+    }
+
+    fun onTournamentSignUpError(t: Throwable?): Observable<Response<JSONObject>> {
+        LogUtil.e(TAG, "onTournamentSignUpError] ${t?.message}")
+        return Observable.empty()
+    }
+
+    fun onTournamentSignUpSuccessfully() {
+        LogUtil.e(TAG, "onTournamentSignUpSuccessfully]")
+        signUpState = TournamentSignUpState.FINISH_PAGE
+        showLayoutByCurrentSignUpState()
     }
 
     override fun initData() {
@@ -262,7 +300,7 @@ class TournamentSignUpFragment : BaseFragment() {
             }
             TournamentSignUpState.FINISH_PAGE -> {
                 DialogUtil.showWarning(activity, getString(R.string.warning_title), getString(R.string.error_your_payment_is_not_actived))
-                fragmentManager.remove(this)
+                fragmentManager.popBackStack(2)
             }
         }
     }
