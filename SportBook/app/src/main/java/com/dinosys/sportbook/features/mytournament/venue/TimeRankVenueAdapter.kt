@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.networks.models.RankVenueModel
-import com.dinosys.sportbook.networks.models.TimeVenueModel
+import com.dinosys.sportbook.networks.models.TimeVenue
 
 class TimeRankVenueAdapter(val timeRankVenues: List<Any>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -51,14 +51,14 @@ class TimeRankVenueAdapter(val timeRankVenues: List<Any>?) : RecyclerView.Adapte
     }
 
     private fun configureDefaultHolder(vh1: InputTimeViewHolder, position: Int) {
-        val timevenue = timeRankVenues?.get(position) as TimeVenueModel
+        val timevenue = timeRankVenues?.get(position) as TimeVenue
         if (timevenue != null) {
             vh1.bindView(timevenue, position)
         }
     }
 
     private fun configureTimeVenueHolder(vh1: InputTimeViewHolder, position: Int) {
-        val timevenue = timeRankVenues?.get(position) as TimeVenueModel
+        val timevenue = timeRankVenues?.get(position) as TimeVenue
         if (timevenue != null) {
             vh1.bindView(timevenue, position)
         }
@@ -72,7 +72,7 @@ class TimeRankVenueAdapter(val timeRankVenues: List<Any>?) : RecyclerView.Adapte
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (timeRankVenues?.get(position) is TimeVenueModel) {
+        if (timeRankVenues?.get(position) is TimeVenue) {
             return INPUT_TIME
         } else if (timeRankVenues?.get(position) is RankVenueModel) {
             return RANKVENUE

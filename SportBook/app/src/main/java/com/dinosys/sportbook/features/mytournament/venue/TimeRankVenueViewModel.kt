@@ -1,27 +1,23 @@
 package com.dinosys.sportbook.features.mytournament.venue
 
-import com.dinosys.sportbook.networks.models.RankVenueModel
-import com.dinosys.sportbook.networks.models.TimeVenueModel
+import android.content.Context
+import com.dinosys.sportbook.networks.models.TeamDataModel
+import com.dinosys.sportbook.networks.models.TimeBlocksModel
+import com.dinosys.sportbook.networks.models.UpdateTimeRankModel
+import com.dinosys.sportbook.networks.teams.TeamsAPI
+import io.reactivex.Observable
+import retrofit2.Response
+import javax.inject.Inject
 
-class TimeRankVenueViewModel() {
+class TimeRankVenueViewModel @Inject constructor(val teamsAPI: TeamsAPI) {
 
-    val sampleList: ArrayList<TimeVenueModel>
-        get() {
-            val items = ArrayList<TimeVenueModel>()
-            items.add(TimeVenueModel(true, "", true, false, false, false, false, false, false))
-            items.add(TimeVenueModel(false, "9:am-12:am", true, false, false, false, false, false, false))
-            items.add(TimeVenueModel(false, "1:pm-4:pm", true, false, false, false, false, false, false))
-            items.add(TimeVenueModel(false, "5:pm-9:pm", true, true, true, true, true, true, true))
-            return items
-        }
 
-    val sampleListRank: ArrayList<RankVenueModel>
-        get() {
-            val items = ArrayList<RankVenueModel>()
-            items.add(RankVenueModel("DEF Venue", "3km-10mins"))
-            items.add(RankVenueModel("ABC Venue", "5km-25mins"))
-            items.add(RankVenueModel("XYZ Venue", "10km-35mins"))
-            items.add(RankVenueModel("HIJ Venue", "13km-40mins"))
-            return items
-        }
+
+    fun updateTimeSlotsModel(context: Context?, preferred_time_blocks: TimeBlocksModel, venue_ranking: Array<Int>?, team_id: Int?)
+            : Observable<Response<TeamDataModel>>{
+
+        return teamsAPI.updateTimeSlots(preferred_time_blocks, venue_ranking, team_id)
+
+    }
+
 }

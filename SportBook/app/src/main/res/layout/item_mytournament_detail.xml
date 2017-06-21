@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvTimeRankVenueName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/ivOpponentsList"
+    android:paddingBottom="28dp"
+    android:paddingLeft="24dp"
+    android:paddingTop="28dp"
+    android:text="Input your time_Rank venue">
+
+</TextView>
+

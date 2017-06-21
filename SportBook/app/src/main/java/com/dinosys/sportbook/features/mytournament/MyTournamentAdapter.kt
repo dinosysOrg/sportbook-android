@@ -17,7 +17,7 @@ class MyTournamentAdapter(val myTournaments: List<TournamentDataModel>?,
     }
 
     override fun onBindViewHolder(holder: MyTournamentViewHolder, position: Int) {
-        holder.bindView(myTournaments!![position], position,tournamentReference)
+        holder.bindView(myTournaments!!.get(position), position, tournamentReference)
     }
 
     override fun getItemCount(): Int = this.myTournaments?.size ?: 0

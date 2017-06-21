@@ -4,12 +4,12 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.dinosys.sportbook.R
-import com.dinosys.sportbook.networks.models.TimeVenueModel
+import com.dinosys.sportbook.networks.models.TimeVenue
 import kotlinx.android.synthetic.main.item_my_tournament_input_time.view.*
 
 class InputTimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindView(timeVenueModel: TimeVenueModel, position: Int) = with(itemView) {
+    fun bindView(timeVenueModel: TimeVenue, position: Int) = with(itemView) {
         if (timeVenueModel.isHeader) {
             tvTimeBlockLeft.visibility = View.INVISIBLE
 

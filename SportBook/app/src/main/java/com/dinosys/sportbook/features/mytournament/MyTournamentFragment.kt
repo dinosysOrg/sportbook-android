@@ -70,11 +70,11 @@ class MyTournamentFragment : BaseFragment(), OnTournamentListener {
     }
 
     override fun onTournamentClick(tournament: TournamentDataModel?) {
-        if(tournament == null){
+        if (tournament == null) {
             return
         }
         val bundle = Bundle()
-        bundle.putInt(TournamentDetailFragment.KEY_ID,tournament.id!!)
+        bundle.putInt(TournamentDetailFragment.KEY_ID, tournament.id!!)
         fragmentManager.openScreenByTag(tag = TournamentDetailFragment.TAG, bundle = bundle)
     }
 

@@ -26,4 +26,6 @@ interface TournamentAPI {
 
     @GET("tournaments/{tournamentId}")
     fun getTournamentDetail(@Path("tournamentId") idTournament: Int?): Observable<Response<TournamentDataModel>>
+
+
 }

@@ -1,6 +1,7 @@
 package com.dinosys.sportbook.features.mytournament.detail
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.extensions.openScreenByTag
@@ -20,32 +21,47 @@ class TournamentDetailFragment : BaseFragment() {
 
     override fun inflateFromLayout(): Int = R.layout.fragment_my_tournament_registered
 
+
     @Inject
     lateinit var tournamentApi: TournamentDetailViewModel
 
     override fun initViews() {
 
-       // idTournament = this.arguments.getInt(KEY_ID)
+        idTournament = this.arguments.getInt(KEY_ID)
+
+        lvTournamentDetail.adapter = ArrayAdapter<String>(context, R.layout.item_mytournament_detail, tournamentDetailList)
 
     }
 
     override fun initListeners() {
         super.initListeners()
 
-        val bundle = Bundle()
-        cvTimeRankVenue.setOnClickListener {
-            //bundle.putInt(TimeRankVenueFragment.KEY_ID, idTournament!!)
-            fragmentManager.openScreenByTag(tag = TimeRankVenueFragment.TAG)
-        }
-        cvTimeTable.setOnClickListener {
-            //bundle.putInt(TimeTableFragment.KEY_ID, idTournament!!)
-            fragmentManager.openScreenByTag(tag = TimeTableFragment.TAG)
+        lvTournamentDetail.setOnItemClickListener { adapterView, view, i, l ->
+            val bundle = Bundle();
+            when (i) {
+                0 -> {
+                    bundle.putInt(TimeRankVenueFragment.KEY_ID, idTournament!!)
+                    fragmentManager.openScreenByTag(tag = TimeRankVenueFragment.TAG, bundle = bundle)
+                }
+                1 -> {
+                    bundle.putInt(TimeRankVenueFragment.KEY_ID, idTournament!!)
+                    fragmentManager.openScreenByTag(tag = TimeRankVenueFragment.TAG, bundle = bundle)
+                }
+                2 -> {
+                    bundle.putInt(TimeTableFragment.KEY_ID, idTournament!!)
+                    fragmentManager.openScreenByTag(tag = TimeTableFragment.TAG, bundle = bundle)
+                }
+                3 -> {
+                    bundle.putInt(OpponentFragment.KEY_ID, idTournament!!)
+                    fragmentManager.openScreenByTag(tag = OpponentFragment.TAG, bundle = bundle)
+                }
+                4 -> {
+                    bundle.putInt(TimeRankVenueFragment.KEY_ID, idTournament!!)
+                    fragmentManager.openScreenByTag(tag = TimeRankVenueFragment.TAG, bundle = bundle)
+                }
+            }
         }
 
-        cvOpponentsList.setOnClickListener {
-            //bundle.putInt(OpponentFragment.KEY_ID, idTournament!!)
-            fragmentManager.openScreenByTag(tag = OpponentFragment.TAG)
-        }
     }
 
     override fun initData() {
@@ -55,7 +71,7 @@ class TournamentDetailFragment : BaseFragment() {
 
     private fun loadTournamentDetail() {
         addDisposable(
-                tournamentApi.getTournamentById(1)
+                tournamentApi.getTournamentById(idTournament!!)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -77,4 +93,16 @@ class TournamentDetailFragment : BaseFragment() {
         val TAG = "TournamentDetailFragment"
         val KEY_ID = "idTournament"
     }
+
+    val tournamentDetailList: ArrayList<String>
+        get() {
+            val items = ArrayList<String>()
+
+            items.add("Rules and regulation")
+            items.add("Input time_Rank venue")
+            items.add("Tournament timetable")
+            items.add("Opponents List")
+            items.add("Tournament results")
+            return items
+        }
 }

@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.features.mytournament.venue
 
+import android.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ArrayAdapter
@@ -9,9 +10,11 @@ import kotlinx.android.synthetic.main.item_my_tournament_rank_venue.view.*
 class RankVenueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindView(rankVenueModel: RankVenueModel, position: Int) = with(itemView) {
+
         tvVenueName.text = rankVenueModel.venue_name
         tvVenueDistance.text = rankVenueModel.venue_distance_time
         spVenueRank.adapter = ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,sampleRank)
+
     }
 
     val sampleRank: ArrayList<String>
