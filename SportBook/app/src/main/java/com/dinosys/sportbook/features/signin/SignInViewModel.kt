@@ -44,6 +44,12 @@ class SignInViewModel @Inject constructor(val authApi : AuthenticationAPI) {
         }
         return authApi.forgotPassword(email, REDIRECT_URL_FORGOT_PASSWORD)
     }
+
+    fun sendTokenToServer(userId: Int?,
+                          token: String?,
+                          platform: Int?): Observable<Response<JSONObject>> {
+        return authApi.sendTokenToServer(userId, token, platform)
+    }
 }
 
 

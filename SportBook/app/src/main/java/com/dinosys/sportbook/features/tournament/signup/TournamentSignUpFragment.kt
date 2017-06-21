@@ -12,7 +12,10 @@ import android.widget.RadioButton
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.PickerDialog
-import com.dinosys.sportbook.extensions.*
+import com.dinosys.sportbook.extensions.addDisposableTo
+import com.dinosys.sportbook.extensions.appContext
+import com.dinosys.sportbook.extensions.editTable
+import com.dinosys.sportbook.extensions.popBackStack
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
@@ -97,7 +100,7 @@ class TournamentSignUpFragment : BaseFragment() {
                         { onTournamentSignUpSuccessfully() },
                         { t -> onTournamentSignUpError(t) }
                 )
-                .addToFragment(this)
+                .addDisposableTo(this)
 
         rgSkills.setOnCheckedChangeListener { group, checkedId ->
                 val rbChecked = rgSkills.findViewById(checkedId) as RadioButton
@@ -186,7 +189,7 @@ class TournamentSignUpFragment : BaseFragment() {
                     }
                 }, {
                     error -> LogUtil.e(TAG, "[loadCities] error=${error.message}")
-                }).addToFragment(this)
+                }).addDisposableTo(this)
     }
 
     private fun checkValidInputData(): Boolean {
