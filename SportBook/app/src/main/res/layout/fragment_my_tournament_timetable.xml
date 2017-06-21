@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <com.dinosys.sportbook.components.ToolbarView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         app:enableNotificationIcon="true"
-        app:toolbarTitle="@string/title_mytournament" />
+        app:toolbarTitle="@string/title_mytournament_detail" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvMyTournament"
+        android:id="@+id/rvTimeTable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

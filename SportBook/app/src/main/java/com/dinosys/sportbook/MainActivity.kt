@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.crashlytics.android.Crashlytics
 import com.dinosys.sportbook.extensions.openScreenByTag
+import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.features.tournament.ProfileFragment
 import com.dinosys.sportbook.features.tournament.StatisticFragment
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener {
             item -> when(item.itemId) {
                 R.id.navigation_tournament -> {
-                    supportFragmentManager.openScreenByTag(tag = TournamentFragment.TAG,
+                    supportFragmentManager.openScreenByTag(tag = MyTournamentFragment.TAG,
                             containerId = R.id.flMainTabContainer, needFindInStack = true)
                     true
                 }

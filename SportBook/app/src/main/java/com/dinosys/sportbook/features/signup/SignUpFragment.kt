@@ -21,10 +21,6 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 import retrofit2.Response
 import javax.inject.Inject
 
-/**
- * Created by hanth on 31/05/2017.
- */
-
 class SignUpFragment : BaseFragment() {
 
     override fun inflateFromLayout() = R.layout.fragment_sign_up
@@ -39,7 +35,6 @@ class SignUpFragment : BaseFragment() {
         initFacebookLoginConfig()
     }
 
-
     override fun initListeners() {
         super.initListeners()
         val btnSignUpDisposable = RxView.clicks(btnSignUp)
@@ -48,20 +43,21 @@ class SignUpFragment : BaseFragment() {
                     val name = etName.text.toString()
                     val email = etEmail.text.toString()
                     val password = etPassword.text.toString()
-                    val confirmpassword = etConfirmPassword.text.toString()
-                    signUpApi.signUp(context,name,email,password,confirmpassword)
+                    val confirmPassword = etConfirmPassword.text.toString()
+                    signUpApi.signUp(context, name, email, password, confirmPassword)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
-                                t:Throwable? -> onSignUpErrorResponse(t?.message)
+                                t: Throwable? ->
+                                onSignUpErrorResponse(t?.message)
                             }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({response -> onSignUpDataResponse(response = response)})
+                .subscribe({ response -> onSignUpDataResponse(response = response) })
         addDisposable(btnSignUpDisposable)
     }
 
-    private fun onSignUpErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
+    private fun onSignUpErrorResponse(textError: String?): ObservableSource<Response<AuthModel>>? {
         ToastUtil.show(appContext, textError)
         return Observable.empty()
     }

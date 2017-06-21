@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saturday"
+        android:textColor="@color/colorBlackGrey" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDay"
+        android:layout_marginTop="6dp"
+        android:text="A1 Math wiht Le Minh C"
+        android:textColor="@color/colorGreyMore" />
+
+    <TextView
+        android:id="@+id/tvVenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:text="ABC Venue"
+        android:textColor="@color/colorGreyMore" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:text="7:00pm - 8:00pm"
+        android:textColor="@color/colorBlackGrey" />
+
+</RelativeLayout>

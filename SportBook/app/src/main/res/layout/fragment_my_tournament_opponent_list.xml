@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.dinosys.sportbook.components.ToolbarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enableNotificationIcon="true"
+        app:toolbarTitle="@string/title_mytournament_detail" />
+
+    <TextView
+        style="@style/styleTextViewTitle"
+        android:text="Opponents list" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGreyMore"
+            android:paddingBottom="16dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/tvRoundName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Round Rodin A1" />
+
+            <TextView
+                android:id="@+id/tvDeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Deadline: May 29th 2017" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvOpponentsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/styleTextViewHeader"
+            android:text="Other Player Group(press to view)" />
+
+    </LinearLayout>
+
+</LinearLayout>

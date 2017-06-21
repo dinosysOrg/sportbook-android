@@ -13,9 +13,6 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by hanth on 31/05/2017.
- */
 @Singleton
 class SignUpViewModel @Inject constructor(val authApi: AuthenticationAPI) {
 
