@@ -1,7 +1,6 @@
 package com.dinosys.sportbook.features.signup
 
 import android.content.Intent
-import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.exceptions.SignUpWithFailureException

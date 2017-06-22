@@ -6,6 +6,7 @@ import com.dinosys.sportbook.MainActivity
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.configs.PLATFORM_ANDROID_VALUE
+import com.dinosys.sportbook.exceptions.SignInWithFailureException
 import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.openScreenByTag
@@ -59,7 +60,7 @@ class SignInFragment : BaseFragment() {
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
-                                t: Throwable? -> onSignInErrorResponse(t?.message)
+                                t: Throwable? -> onSignInErrorResponse(t)
                             }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,8 +71,8 @@ class SignInFragment : BaseFragment() {
         btnCreateAnAccount.setOnClickListener { fragmentManager.openScreenByTag(SignUpFragment.TAG) }
     }
 
-    fun onSignInErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
-        ToastUtil.show(appContext, textError)
+    fun onSignInErrorResponse(t: Throwable?) : ObservableSource<Response<AuthModel>>? {
+        ToastUtil.show(appContext, "${t?.message}")
         return Observable.empty()
     }
 
@@ -89,7 +90,7 @@ class SignInFragment : BaseFragment() {
                     loadTournamentPage()
                 }
             }
-            else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
+            else -> onSignInErrorResponse(SignInWithFailureException(getString(R.string.error_login_failure_text)))
         }
     }
 
@@ -114,7 +115,8 @@ class SignInFragment : BaseFragment() {
         btnFacebookLogin!!.setReadPermissions("email")
         btnFacebookLogin!!.fragment = this
         mCallbackManager = CallbackManager.Factory.create()
-        val disposable = Observable.create<LoginResult> { e ->
+
+        Observable.create<LoginResult> { e ->
             btnFacebookLogin!!.registerCallback(mCallbackManager,
                     object : FacebookCallback<LoginResult> {
                         override fun onCancel() = e.onComplete()
@@ -130,7 +132,8 @@ class SignInFragment : BaseFragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ e -> LogUtil.d(TAG, e.toString()) })
-        addDisposable(disposable)
+                .addDisposableTo(this)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
