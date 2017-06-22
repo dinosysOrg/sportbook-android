@@ -3,6 +3,7 @@ package com.dinosys.sportbook.features.signup
 import android.content.Context
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.configs.PASSWORD_MAX_LENGHT_REQUIRED
+import com.dinosys.sportbook.exceptions.*
 import com.dinosys.sportbook.extensions.isInvalidEmail
 import com.dinosys.sportbook.extensions.isInvalidPassword
 import com.dinosys.sportbook.extensions.throwable
@@ -13,36 +14,34 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by hanth on 31/05/2017.
- */
-@Singleton
+
 class SignUpViewModel @Inject constructor(val authApi: AuthenticationAPI) {
 
-    fun signUp(context: Context?, name: String?, email: String?, password: String?, confirmpassword: String?): Observable<Response<AuthModel>> {
+    fun signUp(context: Context?, name: String?, email: String?, password: String?, confirmPassword: String?): Observable<Response<AuthModel>> {
         if (name.isNullOrEmpty()) {
-            return Observable.error(context?.getString(R.string.error_name_required_text)?.throwable)
+            return Observable.error(SignUpNameNullOrEmptyException(context?.getString(R.string.error_name_required_text)))
         }
         if (email.isNullOrEmpty()) {
-            return Observable.error(context?.getString(R.string.error_username_required_text)?.throwable)
+            return Observable.error(SignUpEmailNullOrEmptyException(context?.getString(R.string.error_username_required_text)))
         }
         if (password.isNullOrEmpty()) {
-            return Observable.error(context?.getString(R.string.error_password_required_text)?.throwable)
+            return Observable.error(SignUpPasswordNullOrEmptyException(context?.getString(R.string.error_password_required_text)))
         }
         if (email!!.isInvalidEmail) {
-            return Observable.error(context?.getString(R.string.error_username_invalid_text)?.throwable)
+            return Observable.error(SignUpEmailInvalidException(context?.getString(R.string.error_username_invalid_text)))
         }
         if (password!!.isInvalidPassword) {
-            return Observable.error(context?.getString(R.string.error_password_invalid_text,
-                    PASSWORD_MAX_LENGHT_REQUIRED)?.throwable)
+            return Observable.error(SignUpPasswordInvalidException(context?.getString(R.string.error_password_invalid_text, PASSWORD_MAX_LENGHT_REQUIRED)))
         }
-        if (confirmpassword!!.isInvalidPassword) {
-            return Observable.error(context?.getString(R.string.error_password_invalid_text,
-                    PASSWORD_MAX_LENGHT_REQUIRED)?.throwable)
+        if (confirmPassword!!.isNullOrEmpty()) {
+            return Observable.error(SignUpPasswordConfirmInvalidException(context?.getString(R.string.error_password_required_text)))
         }
-        if(!password.equals(confirmpassword)){
-            return Observable.error(context?.getString(R.string.error_password_mismatch_text)?.throwable)
+        if (confirmPassword!!.isInvalidPassword) {
+            return Observable.error(SignUpPasswordConfirmInvalidException(context?.getString(R.string.error_password_invalid_text, PASSWORD_MAX_LENGHT_REQUIRED)))
         }
-        return authApi.signUp(email, password)
+        if(!password.equals(confirmPassword)){
+            return Observable.error(SignUpPasswordNotMatchException(context?.getString(R.string.error_password_mismatch_text)))
+        }
+        return authApi.signUp(email, password, confirmPassword)
     }
 }
