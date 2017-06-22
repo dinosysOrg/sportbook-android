@@ -1,10 +1,15 @@
 package com.dinosys.sportbook.features.signup
 
 import android.content.Intent
+import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
+import com.dinosys.sportbook.exceptions.SignUpWithFailureException
+import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
+import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.LogUtil
 import com.dinosys.sportbook.utils.ToastUtil
@@ -18,12 +23,9 @@ import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sign_up.*
+import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
-
-/**
- * Created by hanth on 31/05/2017.
- */
 
 class SignUpFragment : BaseFragment() {
 
@@ -48,21 +50,21 @@ class SignUpFragment : BaseFragment() {
                     val name = etName.text.toString()
                     val email = etEmail.text.toString()
                     val password = etPassword.text.toString()
-                    val confirmpassword = etConfirmPassword.text.toString()
-                    signUpApi.signUp(context,name,email,password,confirmpassword)
+                    val confirmPassword = etConfirmPassword.text.toString()
+                    signUpApi.signUp(context, name, email, password, confirmPassword)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
-                                t:Throwable? -> onSignUpErrorResponse(t?.message)
+                                t:Throwable? -> onSignUpErrorResponse(t)
                             }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({response -> onSignUpDataResponse(response = response)})
-        addDisposable(btnSignUpDisposable)
+                .addDisposableTo(this)
     }
 
-    private fun onSignUpErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
-        ToastUtil.show(appContext, textError)
+    private fun onSignUpErrorResponse(t : Throwable?) : ObservableSource<Response<AuthModel>>? {
+        ToastUtil.show(appContext, t?.message)
         return Observable.empty()
     }
 
@@ -70,10 +72,24 @@ class SignUpFragment : BaseFragment() {
         val statusCode = response.code()
         when (statusCode) {
             in 200..300 -> {
-                val signIn = response.body()
-                signIn?.header = response.headers()
+                ToastUtil.show(appContext!!, getString(R.string.check_confirm_email_text))
+                fragmentManager.openScreenByTag(SignInFragment.TAG)
             }
-            else -> onSignUpErrorResponse(getString(R.string.error_login_failure_text))
+            422 -> {
+                val responseText = response.errorBody()?.string()
+                var errorMessage:String? = JSONObject(responseText)
+                        ?.getJSONObject("errors")
+                        ?.getJSONArray("full_messages")?.getString(0)
+
+                if (errorMessage.isNullOrEmpty()) {
+                   errorMessage = getString(R.string.sign_up_with_the_failure)
+                }
+                onSignUpErrorResponse(SignUpWithFailureException(errorMessage))
+            }
+            else -> {
+                val errorMessage = getString(R.string.sign_up_with_the_failure)
+                onSignUpErrorResponse(SignUpWithFailureException(errorMessage))
+            }
         }
     }
 
