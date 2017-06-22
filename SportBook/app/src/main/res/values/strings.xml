@@ -5,11 +5,18 @@
     <string name="sign_in_text">Sign In</string>
     <string name="error_email_required_text">Email is required.</string>
     <string name="error_name_required_text">Name is required.</string>
+    <string name="error_first_name_required_text">First name is required.</string>
+    <string name="error_last_name_required_text">Last name is required.</string>
+    <string name="error_phone_required_text">Phone is required.</string>
+    <string name="error_phone_invalid_text">Your phone number format is invalid.</string>
+    <string name="error_city_required_text">City is required.</string>
+    <string name="error_district_required_text">District is required.</string>
     <string name="error_username_required_text">Username is required.</string>
     <string name="error_password_required_text">Password is required.</string>
     <string name="error_username_invalid_text">Username is email required.</string>
     <string name="error_password_invalid_text">Passwords must be at least %d characters.</string>
     <string name="error_login_failure_text">Login failure.</string>
+    <string name="error_please_fill_in_required_information_text">Please fill in required information.</string>
     <string name="title_tournament">Tournament</string>
     <string name="title_mytournament">My Tournament</string>
     <string name="title_statistic">Statistic</string>
@@ -25,7 +32,7 @@
     <string name="sign_up_text">Sign Up</string>
     <string name="continue_text">Continue</string>
     <string name="name_text">Name</string>
-    <string name="phone_number_text">Phone number</string>
+    <string name="phone_number_text">Mobile *</string>
     <string name="address_text">Address</string>
     <string name="date_of_birth_text">Date of birth</string>
     <string name="club_text">Club</string>
@@ -35,4 +42,12 @@
     <string name="error_please_indicate_your_skill_level">Please indicate your skill level</string>
     <string name="error_your_payment_is_not_actived">My tournament can not be actived until your payment is confirmed. Please check with operation for more information</string>
     <string name="warning_title">Warning</string>
+    <string name="first_name_text">First Name *</string>
+    <string name="last_name_text">Last name *</string>
+    <string name="city_text">City *</string>
+    <string name="district_text">District *</string>
+    <string name="title_select_the_city">Select the city</string>
+    <string name="title_select_your_district">Select your district</string>
+    <string name="check_confirm_email_text">We have sent you a confirmation email, please check your email</string>
+    <string name="sign_up_with_the_failure">Sign up with the failure</string>
 </resources>

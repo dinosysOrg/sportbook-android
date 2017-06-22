@@ -5,6 +5,9 @@ import android.graphics.Paint
 import com.dinosys.sportbook.MainActivity
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
+import com.dinosys.sportbook.configs.PLATFORM_ANDROID_VALUE
+import com.dinosys.sportbook.exceptions.SignInWithFailureException
+import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.extensions.remove
@@ -18,6 +21,7 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
+import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -47,7 +51,7 @@ class SignInFragment : BaseFragment() {
     }
 
     override fun initListeners() {
-        val btnSignInDisposable = RxView.clicks(btnSignIn)
+        RxView.clicks(btnSignIn)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .switchMap {
                     val userName = etUsername.text.toString()
@@ -56,20 +60,19 @@ class SignInFragment : BaseFragment() {
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
-                                t: Throwable? -> onSignInErrorResponse(t?.message)
+                                t: Throwable? -> onSignInErrorResponse(t)
                             }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response -> onSignInDataResponse(response = response) })
-
-        addDisposable(btnSignInDisposable)
+                .addDisposableTo(this)
 
         tvForgotPassword.setOnClickListener { fragmentManager.openScreenByTag(ForgotFragment.TAG) }
         btnCreateAnAccount.setOnClickListener { fragmentManager.openScreenByTag(SignUpFragment.TAG) }
     }
 
-    fun onSignInErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
-        ToastUtil.show(appContext, textError)
+    fun onSignInErrorResponse(t: Throwable?) : ObservableSource<Response<AuthModel>>? {
+        ToastUtil.show(appContext, "${t?.message}")
         return Observable.empty()
     }
 
@@ -79,21 +82,41 @@ class SignInFragment : BaseFragment() {
             in 200..300 -> {
                 val signIn = response.body()
                 signIn?.header = response.headers()
+
                 if (appContext != null && signIn != null) {
                     AuthenticationManager.saveUser(appContext!!, signIn)
-                    (activity as MainActivity).loadTabContentDefaultSelected()
-                    fragmentManager.remove(this)
+
+                    sendTokenToServerAfterSignIn(signIn?.data?.id!!)
+                    loadTournamentPage()
                 }
             }
-            else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
+            else -> onSignInErrorResponse(SignInWithFailureException(getString(R.string.error_login_failure_text)))
         }
+    }
+
+    private fun sendTokenToServerAfterSignIn(userId: Int) {
+        signInApi.sendTokenToServer(userId,
+                FirebaseInstanceId.getInstance().token,
+                PLATFORM_ANDROID_VALUE)
+                .subscribeOn(Schedulers.newThread())
+                .subscribe({
+                    LogUtil.d(TAG, "store stoken with successfully!")
+                }, {
+                    LogUtil.d(TAG, "store stoken with failure!")
+                })
+    }
+
+    private fun loadTournamentPage() {
+        (activity as MainActivity).loadTabContentDefaultSelected()
+        fragmentManager.remove(this)
     }
 
     private fun initFacebookLoginConfig() {
         btnFacebookLogin!!.setReadPermissions("email")
         btnFacebookLogin!!.fragment = this
         mCallbackManager = CallbackManager.Factory.create()
-        val disposable = Observable.create<LoginResult> { e ->
+
+        Observable.create<LoginResult> { e ->
             btnFacebookLogin!!.registerCallback(mCallbackManager,
                     object : FacebookCallback<LoginResult> {
                         override fun onCancel() = e.onComplete()
@@ -109,7 +132,8 @@ class SignInFragment : BaseFragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ e -> LogUtil.d(TAG, e.toString()) })
-        addDisposable(disposable)
+                .addDisposableTo(this)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

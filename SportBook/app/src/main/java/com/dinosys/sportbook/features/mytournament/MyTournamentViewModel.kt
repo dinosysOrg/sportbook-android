@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MyTournamentViewModel @Inject constructor(val tournamentAPI: TournamentAPI) {
 
     fun getMyTournamentList(): Observable<Response<TournamentModel>> {
-        return tournamentAPI.getTournaments()
+        return tournamentAPI.getMyTournaments()
     }
 
 }
