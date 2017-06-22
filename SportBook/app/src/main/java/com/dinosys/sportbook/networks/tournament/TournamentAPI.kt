@@ -25,7 +25,8 @@ interface TournamentAPI {
                          @Field("address") address: String,
                          @Field("club") club: String? = null,
                          @Field("birthday") birthday: String? = null,
-                         @Field("user_ids") userIds: Array<Int>? = null): Observable<Response<JSONObject>>
+                         @Field("user_ids") userIds: Array<Int>? = null,
+                         @Field("skill_id") skillId: Int? = null): Observable<Response<JSONObject>>
 
     @GET("skills")
     fun getSkills(): Observable<Response<SkillModel>>

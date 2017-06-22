@@ -1,17 +1,16 @@
 package com.dinosys.sportbook.features.tournament.signup
 
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
-import android.view.View
+import android.support.v4.view.ViewPager
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.EditText
-import android.widget.RadioButton
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.PickerDialog
+import com.dinosys.sportbook.configs.KEY_USER_SKILL_LEVEL
 import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.editTable
@@ -23,6 +22,7 @@ import com.dinosys.sportbook.networks.models.SkillDataModel
 import com.dinosys.sportbook.utils.DateUtil
 import com.dinosys.sportbook.utils.DialogUtil
 import com.dinosys.sportbook.utils.LogUtil
+import com.dinosys.sportbook.utils.SharedPreferenceUtil
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,7 +34,8 @@ import kotlinx.android.synthetic.main.item_tournament_signup_skillset_confirm.*
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
-import java.util.*
+import java.util.Calendar
+import java.util.Collections
 import javax.inject.Inject
 
 class TournamentSignUpFragment : BaseFragment() {
@@ -45,13 +46,13 @@ class TournamentSignUpFragment : BaseFragment() {
 
     var skills: ArrayList<SkillDataModel>? = null
 
-    var skillValueSelected: String? = null
-
     var cities: Array<String>? = null
 
     var districtes: JSONArray? = null
 
     var cityIndexSelected = UNSELECTED_CITY_INDEX
+
+    var skillLevelCurrentSelected = 0
 
     @Inject
     lateinit var tournamentSignUpApi: TournamentSignUpViewModel
@@ -64,35 +65,40 @@ class TournamentSignUpFragment : BaseFragment() {
 
     override fun initListeners() {
         btnSignUpPersonalContinue.setOnClickListener {
-            if (checkValidInputData()) {
-                signUpState = TournamentSignUpState.SKILL_SET_PAGE
-                showLayoutByCurrentSignUpState()
+            if (!checkValidInputData()) {
+               return@setOnClickListener
             }
-        }
-
-        btnSkillSetSubmit.setOnClickListener {
-            when (rgSkills.checkedRadioButtonId) {
+            val skillHistoryLevelId = SharedPreferenceUtil.getInt(appContext!!, KEY_USER_SKILL_LEVEL, -1)
+            when (skillHistoryLevelId) {
                 -1 -> {
-                    tvIndicateSkillLevelError.visibility = View.VISIBLE
+                    skillLevelCurrentSelected = 0
+                    signUpState = TournamentSignUpState.SKILL_SET_PAGE
+                    showLayoutByCurrentSignUpState()
                 }
                 else -> {
+                    skillLevelCurrentSelected = skillHistoryLevelId
                     signUpState = TournamentSignUpState.SKILL_SET_CONFIRMED_PAGE
                     showLayoutByCurrentSignUpState()
                 }
             }
+        }
 
+        btnSkillSetSubmit.setOnClickListener {
+            SharedPreferenceUtil.saveInt(appContext!!, KEY_USER_SKILL_LEVEL, skillLevelCurrentSelected)
+            signUpState = TournamentSignUpState.SKILL_SET_CONFIRMED_PAGE
+            showLayoutByCurrentSignUpState()
         }
 
         RxView.clicks(btnSkillSetConfirmSubmit)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .switchMap {
-                    val name = "${etFirstName.text.toString()} ${etLastName.text.toString()}"
+                    val name = "${etFirstName.text.toString()}, ${etLastName.text.toString()}"
                     val birtday = etBirtday.text.toString()
                     val phoneNumber = etPhoneNumber.text.toString()
                     val address = "${etCity.text.toString()} ${etDistrict.text.toString()}"
                     val club = etClub.text.toString()
-
-                    tournamentSignUpApi.signUpTournament(idTournament!!, name, birtday, phoneNumber, address, club)
+                    val skillId = skills!!.get(vpSkills.currentItem).id!!
+                    tournamentSignUpApi.signUpTournament(idTournament!!, name, birtday, phoneNumber, address, club, skillId)
                             .subscribeOn(Schedulers.newThread())
                             .onErrorResumeNext { t: Throwable? -> onTournamentSignUpError(t) }
                 }.observeOn(AndroidSchedulers.mainThread())
@@ -102,15 +108,8 @@ class TournamentSignUpFragment : BaseFragment() {
                 )
                 .addDisposableTo(this)
 
-        rgSkills.setOnCheckedChangeListener { group, checkedId ->
-                val rbChecked = rgSkills.findViewById(checkedId) as RadioButton
-                skillValueSelected = rbChecked.text.toString()
-                tvSkillLevelSelected.text = skillValueSelected
-                tvIndicateSkillLevelError.visibility = View.INVISIBLE
-        }
-
         etCity.setOnClickListener {
-            val dialog = PickerDialog(activity)
+            val dialog = PickerDialog(etCity.context)
             dialog.title = getString(R.string.title_select_the_city)
             dialog.displayedValues = cities
 
@@ -131,7 +130,7 @@ class TournamentSignUpFragment : BaseFragment() {
                 return@setOnClickListener
             }
 
-            val dialog = PickerDialog(activity)
+            val dialog = PickerDialog(etCity.context)
             dialog.title = getString(R.string.title_select_your_district)
             var jsonDistrictArray = districtes!!.getJSONObject(cityIndexSelected).getJSONArray("districts")
             dialog.displayedValues = Array(jsonDistrictArray.length(), { index-> jsonDistrictArray.getString(index)})
@@ -153,17 +152,17 @@ class TournamentSignUpFragment : BaseFragment() {
                     calendar.get(Calendar.DAY_OF_MONTH)).show()
 
         }
-    }
 
-    fun onTournamentSignUpError(t: Throwable?): Observable<Response<JSONObject>> {
-        LogUtil.e(TAG, "onTournamentSignUpError] ${t?.message}")
-        return Observable.empty()
-    }
+        vpSkills.addOnPageChangeListener(object:ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
 
-    fun onTournamentSignUpSuccessfully() {
-        LogUtil.e(TAG, "onTournamentSignUpSuccessfully]")
-        signUpState = TournamentSignUpState.FINISH_PAGE
-        showLayoutByCurrentSignUpState()
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                tvSkillLevelSelected.text = skills!!.get(position).name
+                skillLevelCurrentSelected = position
+            }
+        })
     }
 
     override fun initData() {
@@ -174,6 +173,17 @@ class TournamentSignUpFragment : BaseFragment() {
         etEmail.text = user?.data?.email?.editTable
         loadCities()
         loadSkills()
+        showLayoutByCurrentSignUpState()
+    }
+
+    fun onTournamentSignUpError(t: Throwable?): Observable<Response<JSONObject>> {
+        LogUtil.e(TAG, "onTournamentSignUpError] ${t?.message}")
+        return Observable.empty()
+    }
+
+    fun onTournamentSignUpSuccessfully() {
+        LogUtil.e(TAG, "onTournamentSignUpSuccessfully]")
+        signUpState = TournamentSignUpState.FINISH_PAGE
         showLayoutByCurrentSignUpState()
     }
 
@@ -259,7 +269,7 @@ class TournamentSignUpFragment : BaseFragment() {
     }
 
     private fun loadSkills() {
-        addDisposable(tournamentSignUpApi.getSkills()
+        tournamentSignUpApi.getSkills()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ res ->
@@ -272,7 +282,8 @@ class TournamentSignUpFragment : BaseFragment() {
                             LogUtil.e(TAG, "Error loading skills: ${res.message()}")
                         }
                     }
-                }, { throwable ->  LogUtil.e(TAG, "Error loading skills: ${throwable.message}") }))
+                }, { throwable ->  LogUtil.e(TAG, "Error loading skills: ${throwable.message}") })
+                .addDisposableTo(this)
     }
 
     private fun renderSkillLayout(){
@@ -280,13 +291,11 @@ class TournamentSignUpFragment : BaseFragment() {
             LogUtil.e(TAG, "[renderSkillLayout] data is null")
             return
         }
-        skills!!.forEach {
-            skill -> val rbSkill = RadioButton(rgSkills.context)
-            rbSkill.text = skill.name
-            rbSkill.setTextColor(Color.BLACK)
-            rgSkills.addView(rbSkill)
-            rbSkill.invalidate()
-        }
+        Collections.reverse(skills)
+        val historySkillId = SharedPreferenceUtil.getInt(appContext!!, KEY_USER_SKILL_LEVEL, 0)
+        tvSkillLevelSelected.text = skills!!.get(historySkillId).name
+        val skillAdapter = SkillViewPagerAdapter(skills!!)
+        vpSkills.adapter = skillAdapter
     }
 
     private fun showLayoutByCurrentSignUpState() {

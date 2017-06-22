@@ -13,3 +13,5 @@ val REDIRECT_URL_FORGOT_PASSWORD = "http://sportbook-staging.herokuapp.com/api"
 val DEFAULT_USER_ID_UNKNOWN = 1
 
 val PLATFORM_ANDROID_VALUE = 1
+
+val KEY_USER_SKILL_LEVEL = "skill_level"

@@ -2,6 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical">
 
         <LinearLayout
@@ -20,13 +22,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/skill_set_description" />
 
-            <RadioGroup
-                android:id="@+id/rgSkills"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpSkills"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="200dp"
+                />
 
-            </RadioGroup>
             <TextView
                 android:id="@+id/tvIndicateSkillLevelError"
                 android:layout_marginTop="50dp"

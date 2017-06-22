@@ -23,10 +23,11 @@ class TournamentSignUpViewModel @Inject constructor(val tournamentAPI: Tournamen
                          birthday: String,
                          phoneNumber: String,
                          address: String,
-                         club: String): Observable<Response<JSONObject>>  {
+                         club: String,
+                         skillId: Int): Observable<Response<JSONObject>>  {
 
         return tournamentAPI.signUpTournament(idTournament = idTournament, name = name,
-                birthday = birthday, phoneNumber = phoneNumber, address = address, club = club)
+                birthday = birthday, phoneNumber = phoneNumber, address = address, club = club, skillId = skillId)
     }
 
     fun getCities(context: Context): Observable<JSONArray>  = Observable.create<JSONArray> {
