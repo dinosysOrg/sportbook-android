@@ -160,7 +160,7 @@ class TournamentSignUpFragment : BaseFragment() {
 
             override fun onPageSelected(position: Int) {
                 tvSkillLevelSelected.text = skills!!.get(position).name
-                skillLevelCurrentSelected = position
+                skillLevelCurrentSelected = skills!!.get(position).id!!
             }
         })
     }

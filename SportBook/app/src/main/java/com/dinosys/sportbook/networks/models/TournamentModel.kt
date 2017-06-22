@@ -8,5 +8,8 @@ data class TournamentEmbeddedModel(@SerializedName("tournaments") val tournament
 
 data class TournamentDataModel(@SerializedName("id") val id: Int?,
                                @SerializedName("name") val name: String?,
-                               @SerializedName("start_date") val startDate: String?,
-                               @SerializedName("end_date") val endDate: String?)
+                               @SerializedName("start_date") val startDate: String? = null,
+                               @SerializedName("end_date") val endDate: String? = null,
+                               @SerializedName("competition_mode") val competitionMode: String? = null,
+                               @SerializedName("competition_fee") val competitionFee: String? = null,
+                               @SerializedName("competition_schedule") val competitionSchedule: String? = null)

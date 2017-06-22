@@ -62,7 +62,7 @@ class TournamentFragment : BaseFragment(), OnTournamentListener {
 
     private fun fillDataToAdapter(tournament: TournamentModel?) {
         val tournamentData = tournament?.embedded?.tournaments
-        val myTournament = TournamentDataModel(ID_MY_TOURNAMENT, getString(R.string.title_mytournament), null, null)
+        val myTournament = TournamentDataModel(ID_MY_TOURNAMENT, getString(R.string.title_mytournament))
         tournamentData?.add(0, myTournament)
         when (tournamentData) {
             null -> {

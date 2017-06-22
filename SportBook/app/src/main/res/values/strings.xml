@@ -48,4 +48,7 @@
     <string name="district_text">District *</string>
     <string name="title_select_the_city">Select the city</string>
     <string name="title_select_your_district">Select your district</string>
+    <string name="title_competition_fee">Competition Fee</string>
+    <string name="title_competition_mode">Competition Mode</string>
+    <string name="title_competition_schedule">Competition Schedule</string>
 </resources>
