@@ -1,9 +1,6 @@
 package com.dinosys.sportbook.exceptions
 
 
-
-class SignUpNameNullOrEmptyException(message: String?): Exception(message)
-
 class SignUpEmailNullOrEmptyException(message: String?): Exception(message)
 
 class SignUpEmailInvalidException(message: String?): Exception(message)

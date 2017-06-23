@@ -4,7 +4,6 @@ import android.content.Intent
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.exceptions.SignUpWithFailureException
-import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.BaseFragment
@@ -46,11 +45,10 @@ class SignUpFragment : BaseFragment() {
         val btnSignUpDisposable = RxView.clicks(btnSignUp)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .switchMap {
-                    val name = etName.text.toString()
                     val email = etEmail.text.toString()
                     val password = etPassword.text.toString()
                     val confirmPassword = etConfirmPassword.text.toString()
-                    signUpApi.signUp(context, name, email, password, confirmPassword)
+                    signUpApi.signUp(context, email, password, confirmPassword)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
@@ -59,7 +57,7 @@ class SignUpFragment : BaseFragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({response -> onSignUpDataResponse(response = response)})
-                .addDisposableTo(this)
+        addDisposable(btnSignUpDisposable)
     }
 
     private fun onSignUpErrorResponse(t : Throwable?) : ObservableSource<Response<AuthModel>>? {

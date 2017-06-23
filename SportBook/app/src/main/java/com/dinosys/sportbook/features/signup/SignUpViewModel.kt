@@ -17,10 +17,7 @@ import javax.inject.Singleton
 
 class SignUpViewModel @Inject constructor(val authApi: AuthenticationAPI) {
 
-    fun signUp(context: Context?, name: String?, email: String?, password: String?, confirmPassword: String?): Observable<Response<AuthModel>> {
-        if (name.isNullOrEmpty()) {
-            return Observable.error(SignUpNameNullOrEmptyException(context?.getString(R.string.error_name_required_text)))
-        }
+    fun signUp(context: Context?, email: String?, password: String?, confirmPassword: String?): Observable<Response<AuthModel>> {
         if (email.isNullOrEmpty()) {
             return Observable.error(SignUpEmailNullOrEmptyException(context?.getString(R.string.error_username_required_text)))
         }
@@ -34,12 +31,12 @@ class SignUpViewModel @Inject constructor(val authApi: AuthenticationAPI) {
             return Observable.error(SignUpPasswordInvalidException(context?.getString(R.string.error_password_invalid_text, PASSWORD_MAX_LENGHT_REQUIRED)))
         }
         if (confirmPassword!!.isNullOrEmpty()) {
-            return Observable.error(SignUpPasswordConfirmInvalidException(context?.getString(R.string.error_password_required_text)))
+            return Observable.error(SignUpPasswordConfirmINullOrEmptyException(context?.getString(R.string.error_password_required_text)))
         }
-        if (confirmPassword!!.isInvalidPassword) {
+        if (confirmPassword.isInvalidPassword) {
             return Observable.error(SignUpPasswordConfirmInvalidException(context?.getString(R.string.error_password_invalid_text, PASSWORD_MAX_LENGHT_REQUIRED)))
         }
-        if(!password.equals(confirmPassword)){
+        if(password != confirmPassword){
             return Observable.error(SignUpPasswordNotMatchException(context?.getString(R.string.error_password_mismatch_text)))
         }
         return authApi.signUp(email, password, confirmPassword)
