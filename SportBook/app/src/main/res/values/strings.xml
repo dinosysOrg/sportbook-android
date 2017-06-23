@@ -54,4 +54,6 @@
     <string name="error_tournament_sign_up_failure">Tournament sign up with failure</string>
     <string name="payment_peding_text">PAYMENT PENDING</string>
     <string name="paid">PAID</string>
+    <string name="check_confirm_email_text">We have sent you a confirmation email, please check your email</string>
+    <string name="sign_up_with_the_failure">Sign up with the failure</string>
 </resources>
