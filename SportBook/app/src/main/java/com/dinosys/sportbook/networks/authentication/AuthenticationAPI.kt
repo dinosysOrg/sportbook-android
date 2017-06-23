@@ -28,8 +28,8 @@ interface AuthenticationAPI {
     fun forgotPassword(@Field("email") email : String,
                        @Field("redirect_url") redirectUrl : String) : Observable<Response<JSONObject>>
 
-
+    @FormUrlEncoded
     @POST("auth/")
-    fun signUp(@Field("email")email:String, @Field("password") password:String): Observable<Response<AuthModel>>
+    fun signUp(@Field("email")email:String, @Field("password") password:String, @Field("password_confirmation") passwordConfirmation: String): Observable<Response<AuthModel>>
 
 }
