@@ -14,6 +14,7 @@ import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.AuthModel
+import com.dinosys.sportbook.exceptions.SignInWithFailureException
 import com.dinosys.sportbook.utils.LogUtil
 import com.dinosys.sportbook.utils.ToastUtil
 import com.facebook.CallbackManager
@@ -59,7 +60,7 @@ class SignInFragment : BaseFragment() {
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .onErrorResumeNext {
-                                t: Throwable? -> onSignInErrorResponse(t?.message)
+                                t: Throwable? -> onSignInErrorResponse(t)
                             }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,8 +71,8 @@ class SignInFragment : BaseFragment() {
         btnCreateAnAccount.setOnClickListener { fragmentManager.openScreenByTag(SignUpFragment.TAG) }
     }
 
-    fun onSignInErrorResponse(textError : String?) : ObservableSource<Response<AuthModel>>? {
-        ToastUtil.show(appContext, textError)
+    fun onSignInErrorResponse(t: Throwable?) : ObservableSource<Response<AuthModel>>? {
+        ToastUtil.show(appContext, "${t?.message}")
         return Observable.empty()
     }
 
@@ -89,7 +90,7 @@ class SignInFragment : BaseFragment() {
                     loadTournamentPage()
                 }
             }
-            else -> onSignInErrorResponse(getString(R.string.error_login_failure_text))
+            else -> onSignInErrorResponse(SignInWithFailureException(getString(R.string.error_login_failure_text)))
         }
     }
 

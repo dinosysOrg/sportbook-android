@@ -48,4 +48,6 @@
     <string name="district_text">District *</string>
     <string name="title_select_the_city">Select the city</string>
     <string name="title_select_your_district">Select your district</string>
+    <string name="check_confirm_email_text">We have sent you a confirmation email, please check your email</string>
+    <string name="sign_up_with_the_failure">Sign up with the failure</string>
 </resources>
