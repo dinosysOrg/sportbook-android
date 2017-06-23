@@ -1,6 +1,5 @@
 package com.dinosys.sportbook.features.tournament.overview
 
-import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.extensions.loadHtmlToText
 import com.dinosys.sportbook.features.BaseFragment

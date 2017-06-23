@@ -11,6 +11,7 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.PickerDialog
 import com.dinosys.sportbook.configs.KEY_USER_SKILL_LEVEL
+import com.dinosys.sportbook.exceptions.TournamentSignUpFailureException
 import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
 import com.dinosys.sportbook.extensions.editTable
@@ -19,7 +20,7 @@ import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
 import com.dinosys.sportbook.networks.models.SkillDataModel
-import com.dinosys.sportbook.utils.DateUtil
+import com.dinosys.sportbook.networks.models.TournamentSignUpModel
 import com.dinosys.sportbook.utils.DialogUtil
 import com.dinosys.sportbook.utils.LogUtil
 import com.dinosys.sportbook.utils.SharedPreferenceUtil
@@ -32,10 +33,8 @@ import kotlinx.android.synthetic.main.item_tournament_signup_personal.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset.*
 import kotlinx.android.synthetic.main.item_tournament_signup_skillset_confirm.*
 import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Response
-import java.util.Calendar
-import java.util.Collections
+import java.util.*
 import javax.inject.Inject
 
 class TournamentSignUpFragment : BaseFragment() {
@@ -53,6 +52,8 @@ class TournamentSignUpFragment : BaseFragment() {
     var cityIndexSelected = UNSELECTED_CITY_INDEX
 
     var skillLevelCurrentSelected = 0
+
+    val BIRTDAY_SHORT_PATTERN = "dd/MM/yyyy"
 
     @Inject
     lateinit var tournamentSignUpApi: TournamentSignUpViewModel
@@ -103,7 +104,16 @@ class TournamentSignUpFragment : BaseFragment() {
                             .onErrorResumeNext { t: Throwable? -> onTournamentSignUpError(t) }
                 }.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { onTournamentSignUpSuccessfully() },
+                        { res -> when(res.code()) {
+                                in 200..300  ->{
+                                    val tournamentDataResponse = res.body()
+                                    onTournamentSignUpSuccessfully(tournamentDataResponse)
+                                }
+                                else -> {
+                                    onTournamentSignUpError(TournamentSignUpFailureException(getString(R.string.error_tournament_sign_up_failure)))
+                                }
+                            }
+                        },
                         { t -> onTournamentSignUpError(t) }
                 )
                 .addDisposableTo(this)
@@ -145,7 +155,7 @@ class TournamentSignUpFragment : BaseFragment() {
         }
 
         etBirtday.setOnClickListener {
-            val birtdaySetListener = OnBirtdayDateSetListener(etBirtday, DateUtil.SHORT_PATTERN)
+            val birtdaySetListener = OnBirtdayDateSetListener(etBirtday, BIRTDAY_SHORT_PATTERN)
             val calendar = Calendar.getInstance()
             DatePickerDialog(etBirtday.context, birtdaySetListener,
                     calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -169,20 +179,23 @@ class TournamentSignUpFragment : BaseFragment() {
         SportbookApp.tournamentComponent.inject(this)
         signUpState = TournamentSignUpState.PERSONAL_PAGE
 
-        val user = AuthenticationManager.getUser(appContext!!)
-        etEmail.text = user?.data?.email?.editTable
+        val user = AuthenticationManager.getUserInfo(appContext!!)
+        etEmail.text = user?.email?.editTable
         loadCities()
         loadSkills()
         showLayoutByCurrentSignUpState()
     }
 
-    fun onTournamentSignUpError(t: Throwable?): Observable<Response<JSONObject>> {
+    fun onTournamentSignUpError(t: Throwable?): Observable<Response<TournamentSignUpModel>> {
         LogUtil.e(TAG, "onTournamentSignUpError] ${t?.message}")
         return Observable.empty()
     }
 
-    fun onTournamentSignUpSuccessfully() {
-        LogUtil.e(TAG, "onTournamentSignUpSuccessfully]")
+    fun onTournamentSignUpSuccessfully(tournamentSignUpModel: TournamentSignUpModel?) {
+        val authUser = tournamentSignUpModel?.user
+        if (authUser != null) {
+            AuthenticationManager.saveUserInfo(appContext!!, authUser)
+        }
         signUpState = TournamentSignUpState.FINISH_PAGE
         showLayoutByCurrentSignUpState()
     }

@@ -83,9 +83,9 @@ class SignInFragment : BaseFragment() {
                 signIn?.header = response.headers()
 
                 if (appContext != null && signIn != null) {
-                    AuthenticationManager.saveUser(appContext!!, signIn)
+                    AuthenticationManager.saveAuthenticationInfo(appContext!!, signIn)
 
-                    sendTokenToServerAfterSignIn(signIn?.data?.id!!)
+                    sendTokenToServerAfterSignIn(signIn.data?.id!!)
                     loadTournamentPage()
                 }
             }

@@ -51,4 +51,7 @@
     <string name="title_competition_fee">Competition Fee</string>
     <string name="title_competition_mode">Competition Mode</string>
     <string name="title_competition_schedule">Competition Schedule</string>
+    <string name="error_tournament_sign_up_failure">Tournament sign up with failure</string>
+    <string name="payment_peding_text">PAYMENT PENDING</string>
+    <string name="paid">PAID</string>
 </resources>

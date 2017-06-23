@@ -21,8 +21,8 @@ class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
 
     override fun onTokenRefresh() {
         val refreshedToken = FirebaseInstanceId.getInstance().token
-        val authUser = AuthenticationManager.getUser(this)
-        var userId = authUser?.data?.id
+        val authUser = AuthenticationManager.getUserInfo(this)
+        var userId = authUser?.id
         if (userId == null) {
             userId = DEFAULT_USER_ID_UNKNOWN
         }
