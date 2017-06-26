@@ -3,6 +3,7 @@ package com.dinosys.sportbook.features.mytournament.venue
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.networks.models.TimeVenue
 import kotlinx.android.synthetic.main.item_my_tournament_input_time.view.*
@@ -10,90 +11,44 @@ import kotlinx.android.synthetic.main.item_my_tournament_input_time.view.*
 class InputTimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindView(timeVenueModel: TimeVenue, position: Int) = with(itemView) {
-        if (timeVenueModel.isHeader) {
+        val arrayDays = itemView.resources.getStringArray(R.array.array_time_range_days)
+        if (timeVenueModel.isHeader!!) {
             tvTimeBlockLeft.visibility = View.INVISIBLE
 
-            tvTimeBlockRightOne.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightOne.visibility = View.VISIBLE
-            tvTimeBlockRightOne.text = "S";
-
-            tvTimeBlockRightTwo.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightTwo.visibility = View.VISIBLE
-            tvTimeBlockRightTwo.text = "M";
-
-            tvTimeBlockRightThree.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightThree.visibility = View.VISIBLE
-            tvTimeBlockRightThree.text = "T";
-
-            tvTimeBlockRightFour.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightFour.visibility = View.VISIBLE
-            tvTimeBlockRightFour.text = "W";
-
-            tvTimeBlockRightFive.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightFive.visibility = View.VISIBLE
-            tvTimeBlockRightFive.text = "T";
-
-            tvTimeBlockRightSix.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightSix.visibility = View.VISIBLE
-            tvTimeBlockRightSix.text = "F";
-
-            tvTimeBlockRightSeven.setBackgroundColor(Color.WHITE)
-            tvTimeBlockRightSeven.visibility = View.VISIBLE
-            tvTimeBlockRightSeven.text = "S";
+            renderTimeRangeHeaderUI(tvSunday, arrayDays[0])
+            renderTimeRangeHeaderUI(tvMonday, arrayDays[1])
+            renderTimeRangeHeaderUI(tvTuesday, arrayDays[2])
+            renderTimeRangeHeaderUI(tvWednesday, arrayDays[3])
+            renderTimeRangeHeaderUI(tvThursday, arrayDays[4])
+            renderTimeRangeHeaderUI(tvFriday, arrayDays[5])
+            renderTimeRangeHeaderUI(tvSaturday, arrayDays[6])
 
         } else {
             tvTimeBlockLeft.visibility = View.VISIBLE
-            tvTimeBlockLeft.text = timeVenueModel.time_block
-            if (timeVenueModel.isDayOneAvailable) {
-                tvTimeBlockRightOne.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightOne.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightOne.visibility = View.INVISIBLE
-            }
+            tvTimeBlockLeft.text = timeVenueModel.timeBlock
 
-            if (timeVenueModel.isDayTwoAvailable) {
-                tvTimeBlockRightTwo.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightTwo.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightTwo.visibility = View.INVISIBLE
-            }
-
-            if (timeVenueModel.isDayThreeAvailable) {
-                tvTimeBlockRightThree.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightThree.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightThree.visibility = View.INVISIBLE
-            }
-
-            if (timeVenueModel.isDayFourAvailable) {
-                tvTimeBlockRightFour.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightFour.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightFour.visibility = View.INVISIBLE
-            }
-
-            if (timeVenueModel.isDayFiveAvailable) {
-                tvTimeBlockRightFive.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightFive.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightFive.visibility = View.INVISIBLE
-            }
-
-            if (timeVenueModel.isDaySixAvailable) {
-                tvTimeBlockRightSix.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightSix.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightSix.visibility = View.INVISIBLE
-            }
-
-            if (timeVenueModel.isDaySevenAvailable) {
-                tvTimeBlockRightSeven.setBackgroundResource(R.drawable.rounded_textview)
-                tvTimeBlockRightSeven.visibility = View.VISIBLE
-            } else {
-                tvTimeBlockRightSeven.visibility = View.INVISIBLE
-            }
-
+            renderTimeRangeItemUI(tvSunday, timeVenueModel, arrayDays[0]);
+            renderTimeRangeItemUI(tvMonday, timeVenueModel, arrayDays[1]);
+            renderTimeRangeItemUI(tvTuesday, timeVenueModel, arrayDays[2]);
+            renderTimeRangeItemUI(tvWednesday, timeVenueModel, arrayDays[3]);
+            renderTimeRangeItemUI(tvThursday, timeVenueModel, arrayDays[4]);
+            renderTimeRangeItemUI(tvFriday, timeVenueModel, arrayDays[5]);
+            renderTimeRangeItemUI(tvSaturday, timeVenueModel, arrayDays[6]);
         }
     }
 
+    private fun renderTimeRangeHeaderUI(textView: TextView, text: String) {
+        textView.setBackgroundColor(Color.WHITE)
+        textView.visibility = View.VISIBLE
+        textView.text = text;
+    }
+
+    private fun renderTimeRangeItemUI(textView: TextView, timeVenueModel: TimeVenue, day: String) {
+        if (timeVenueModel.isAvailableBlockTime(day)) {
+            textView.setBackgroundResource(R.drawable.rounded_textview)
+            textView.visibility = View.VISIBLE
+        } else {
+            textView.visibility = View.INVISIBLE
+        }
+    }
 }

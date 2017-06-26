@@ -5,7 +5,6 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.networks.models.RankVenueModel
-import com.dinosys.sportbook.networks.models.TimeBlocksModel
 import com.dinosys.sportbook.networks.models.TimeVenue
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +34,7 @@ class TimeRankVenueFragment : BaseFragment() {
         super.initListeners()
         val btnTimeSlotsDisposable = RxView.clicks(btnUpdateTimeVenue)
                 .subscribeOn(AndroidSchedulers.mainThread())
-                //.switchMap {  }
+        //.switchMap {  }
 
     }
 
@@ -47,10 +46,12 @@ class TimeRankVenueFragment : BaseFragment() {
     val sampleList: ArrayList<TimeVenue>
         get() {
             val items = ArrayList<TimeVenue>()
-            items.add(TimeVenue(true, "", true, false, false, false, false, false, false))
-            items.add(TimeVenue(false, "9:am-12:am", true, false, false, false, false, false, false))
-            items.add(TimeVenue(false, "1:pm-4:pm", true, false, false, false, false, false, false))
-            items.add(TimeVenue(false, "5:pm-9:pm", true, true, true, true, true, true, true))
+            //val days = ArrayList<String>()
+            items.add(TimeVenue(true, "", null));
+            items.add(TimeVenue(false, "9am-12am", null));
+            items.add(TimeVenue(false, "1pm-4pm", null));
+            items.add(TimeVenue(false, "5pm-7pm", null));
+
             return items
         }
 
@@ -64,15 +65,4 @@ class TimeRankVenueFragment : BaseFragment() {
             return items
         }
 
-
-    val sampleListBlocks: ArrayList<TimeBlocksModel>
-        get() {
-            val items = ArrayList<TimeBlocksModel>()
-            items.add(TimeBlocksModel(null,null,null,null,null,null,null))
-            items.add(TimeBlocksModel(null,null,null,null,null,null,null))
-            items.add(TimeBlocksModel(null,null,null,null,null,null,null))
-            items.add(TimeBlocksModel(null,null,null,null,null,null,null))
-
-            return items
-        }
 }

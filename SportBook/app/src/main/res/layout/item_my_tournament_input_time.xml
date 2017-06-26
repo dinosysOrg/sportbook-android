@@ -20,43 +20,43 @@
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightOne"
+            android:id="@+id/tvSunday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightTwo"
+            android:id="@+id/tvMonday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightThree"
+            android:id="@+id/tvTuesday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightFour"
+            android:id="@+id/tvWednesday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightFive"
+            android:id="@+id/tvThursday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightSix"
+            android:id="@+id/tvFriday"
             style="@style/styleTimeVenueIsAvailable" />
 
         <View style="@style/styleTimeBlockBorder" />
 
         <TextView
-            android:id="@+id/tvTimeBlockRightSeven"
+            android:id="@+id/tvSaturday"
             style="@style/styleTimeVenueIsAvailable" />
 
     </LinearLayout>
