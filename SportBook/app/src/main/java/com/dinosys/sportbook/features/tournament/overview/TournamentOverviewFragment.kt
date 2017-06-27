@@ -5,6 +5,7 @@ import android.view.View
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.BaseTabViewPagerAdapter
+import com.dinosys.sportbook.components.RxBus
 import com.dinosys.sportbook.exceptions.TournamentSignUpFailureException
 import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.appContext
@@ -29,26 +30,42 @@ class TournamentOverviewFragment : BaseFragment() {
 
     var tournamentDataModel: TournamentDetailDataModel? = null
 
+    init {
+        RxBus.events(TournamentDetailDataModel::class.java)
+                .subscribe{ data -> tournamentDataModel = data }
+                .addDisposableTo(this)
+    }
+
     override fun inflateFromLayout(): Int = R.layout.fragment_tournament_overview
 
     @Inject
     lateinit var tournamentApi: TournamentOverviewViewModel
 
     override fun initViews() {
-        idTournament = this.arguments.getInt(KEY_ID)
+        val bundle = this.arguments
+        if (bundle == null) {
+            return
+        }
+        if (bundle.containsKey(KEY_ID)) {
+            idTournament = bundle.getInt(KEY_ID)
+        }
     }
 
     override fun initData() {
         super.initData()
         SportbookApp.tournamentComponent.inject(this)
-
-        if (idTournament == null) {
-            return
-        }
         loadTournamentDetail()
     }
 
     private fun loadTournamentDetail() {
+        if (tournamentDataModel == null) {
+            loadTournamentDetailById()
+        } else {
+            renderTournamentOverviewLayout(tournamentDataModel)
+        }
+    }
+
+    private fun loadTournamentDetailById() {
         tournamentApi.getTournamentDetail(idTournament!!)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,12 +76,12 @@ class TournamentOverviewFragment : BaseFragment() {
                             renderTournamentOverviewLayout(tournament)
                         }
                         else -> {
-                           LogUtil.e(TAG, "[loadTournamentDetail] error=${response.errorBody()?.string()}")
+                            LogUtil.e(TAG, "[loadTournamentDetail] error=${response.errorBody()?.string()}")
                         }
                     }
                 }, {
                     t -> LogUtil.e(TAG, "[loadTournamentDetail] error=${t.message}")
-                })
+                }).addDisposableTo(this)
     }
 
     private fun setSignUpButtonStatus() {

@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.features.mytournament
 
+import com.dinosys.sportbook.networks.models.TournamentDetailDataModel
 import com.dinosys.sportbook.networks.models.TournamentModel
 import com.dinosys.sportbook.networks.tournament.TournamentAPI
 import io.reactivex.Observable
@@ -12,4 +13,7 @@ class MyTournamentViewModel @Inject constructor(val tournamentAPI: TournamentAPI
         return tournamentAPI.getMyTournaments()
     }
 
+    fun getTournamentDetail(idTournament: Int) : Observable<Response<TournamentDetailDataModel>> {
+        return tournamentAPI.getTournamentDetail(idTournament)
+    }
 }

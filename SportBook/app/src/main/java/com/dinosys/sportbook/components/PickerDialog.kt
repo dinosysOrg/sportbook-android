@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import com.dinosys.sportbook.R
+import com.dinosys.sportbook.extensions.setFullWidth
 import kotlinx.android.synthetic.main.dialog_picker.*
 
 
@@ -29,25 +30,6 @@ class PickerDialog(context: Context?) : Dialog(context) {
         setFullWidth()
         initData()
         initListeners()
-    }
-
-    private fun setFullWidth() {
-        val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val width: Int
-
-        if (Build.VERSION.SDK_INT > VERSION_CODES.FROYO) {
-            width = manager.defaultDisplay.width
-        } else {
-            val point = Point()
-            manager.defaultDisplay.getSize(point)
-            width = point.x
-        }
-
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(this.window!!.attributes)
-        lp.width = width
-
-        this.window!!.attributes = lp
     }
 
     private fun initData() {
