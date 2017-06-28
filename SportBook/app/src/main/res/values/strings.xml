@@ -56,4 +56,16 @@
     <string name="paid">PAID</string>
     <string name="check_confirm_email_text">We have sent you a confirmation email, please check your email</string>
     <string name="sign_up_with_the_failure">Sign up with the failure</string>
+    <string name="time_block_9am_12am_text">9am-12am</string>
+    <string name="time_block_1pm_4pm_text">1pm-4pm</string>
+    <string name="time_block_5pm_9pm_text">5pm-9pm</string>
+    <string name="error_unauthorized_text">Unauthorized, missing token in header</string>
+    <string name="error_update_time_slot_failure_text">You are not in the team that can do this operation</string>
+    <string name="error_missing_feild_text">One of require fields is missing</string>
+    <string name="warning_update_timeslot_text">You have submited your prefered time and venue. This is one time submit soplease check carefully</string>
+    <string name="ok_text">OK</string>
+    <string name="wait_let_me_check_text">Wait, let me check</string>
+    <string name="rank_your_venue_text">Rank your venue</string>
+    <string name="input_your_time_range_text">Input your time range</string>
+    <string name="error_you_must_at_least_pick_5_timeslots_text">You must at least pick 5 timeslots</string>
 </resources>

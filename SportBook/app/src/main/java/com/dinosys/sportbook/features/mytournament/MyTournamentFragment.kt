@@ -31,8 +31,7 @@ class MyTournamentFragment : BaseFragment(), OnTournamentListener {
 
     override fun initViews() {
         val heightDivider = resources.getDimensionPixelOffset(R.dimen.height_tournament_list_divider)
-        val verticalSpacing = ItemSpaceDecorator(left = heightDivider, right = heightDivider,
-                top = heightDivider, bottom = heightDivider)
+        val verticalSpacing = ItemSpaceDecorator(left = heightDivider, right = heightDivider, top = heightDivider, bottom = heightDivider)
         rvMyTournament.layoutManager = LinearLayoutManager(context)
         rvMyTournament.addItemDecoration(verticalSpacing)
     }

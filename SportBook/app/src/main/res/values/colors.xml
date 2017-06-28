@@ -8,4 +8,8 @@
     <color name="colorTabTextUnSelected">#bdbdbd</color>
     <color name="colorEditTextBorder">#424242</color>
     <color name="colorGrey">#dddddd</color>
+    <color name="colorGreyMore">#BDBDBD</color>
+    <color name="colorBlackGrey">#212121</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBoxGray">#d4d4d4</color>
 </resources>
