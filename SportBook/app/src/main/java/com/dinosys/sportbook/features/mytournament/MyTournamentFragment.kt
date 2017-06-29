@@ -104,7 +104,7 @@ class MyTournamentFragment : BaseFragment(), OnTournamentListener {
         val status = tournamentDetail.teams?.status
         when (status) {
             TeamModel.STATUS_PAID -> openSpecificScreen(tournamentDetail)
-            TeamModel.STATUS_REGISTER -> openSpecificScreen(tournamentDetail)
+            TeamModel.STATUS_REGISTER -> openOverviewScreen(tournamentDetail)
             else -> LogUtil.e(TAG, "[onLoadTournamentDetailSuccessfully] status = ${status}")
         }
     }
