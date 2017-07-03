@@ -75,6 +75,7 @@ fun FragmentManager.popBackStack(numberOfFragment: Int) {
     val fromPos = fragments.size - numberOfFragment
     for (currentPos in fromPos until fragments.size) {
         transaction.remove(fragments[currentPos])
+        popBackStack()
     }
 
     transaction.commit()
