@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
 import com.dinosys.sportbook.features.mytournament.detail.MyTournamentSpecificFragment
+import com.dinosys.sportbook.features.mytournament.invitation.InvitationFragment
 import com.dinosys.sportbook.features.mytournament.opponent.OpponentFragment
 import com.dinosys.sportbook.features.mytournament.venue.VenueFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment
@@ -43,6 +44,7 @@ private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
         MyTournamentSpecificFragment.TAG -> MyTournamentSpecificFragment()
         VenueFragment.TAG -> VenueFragment()
         OpponentFragment.TAG -> OpponentFragment()
+        InvitationFragment.TAG -> InvitationFragment()
         else -> null
     }
 

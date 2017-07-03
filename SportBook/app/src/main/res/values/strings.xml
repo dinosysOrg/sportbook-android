@@ -69,4 +69,5 @@
     <string name="input_your_time_range_text">Input your time range</string>
     <string name="error_you_must_at_least_pick_5_timeslots_text">You must at least pick 5 timeslots</string>
     <string name="opponents_list_text">Opponents list</string>
+    <string name="title_opponent_list">Opponent List</string>
 </resources>

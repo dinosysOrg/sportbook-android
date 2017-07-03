@@ -5,19 +5,23 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.RxBus
 import com.dinosys.sportbook.extensions.addDisposableTo
+import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.extensions.popBackStack
 import com.dinosys.sportbook.extensions.throwable
 import com.dinosys.sportbook.features.BaseFragment
+import com.dinosys.sportbook.features.mytournament.invitation.InvitationFragment
 import com.dinosys.sportbook.networks.models.OpponentListModel
+import com.dinosys.sportbook.networks.models.OpponentTeamModel
 import com.dinosys.sportbook.networks.models.TournamentDetailDataModel
 import com.dinosys.sportbook.utils.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_my_tournament_opponent_list.*
 import retrofit2.Response
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class OpponentFragment : BaseFragment() {
+class OpponentFragment : BaseFragment(), OpponentItemListener {
 
     var tournamentDetail: TournamentDetailDataModel? = null
 
@@ -62,7 +66,7 @@ class OpponentFragment : BaseFragment() {
                     onLoadOpponentListFailure(NullPointerException("My group is null"))
                 } else {
                     tvGroupName.text = myGroup?.groupName
-                    rvOpponentsList.adapter = OpponentAdapter(myGroup!!.opponentTeams!!)
+                    rvOpponentsList.adapter = OpponentAdapter(myGroup!!.opponentTeams!!, WeakReference(this))
                 }
             }
             else -> onLoadOpponentListFailure(response.message().throwable)
@@ -73,8 +77,12 @@ class OpponentFragment : BaseFragment() {
         LogUtil.e(TAG, "[onLoadOpponentListFailure] error = ${t?.message}")
     }
 
+    override fun onOpponetItemSelected(opponentTeamModel: OpponentTeamModel) {
+        fragmentManager.openScreenByTag(InvitationFragment.TAG)
+        RxBus.publish(opponentTeamModel)
+    }
+
     companion object{
         val TAG: String = "OpponentFragment"
-        val KEY_ID: String ="idTournament"
     }
 }
