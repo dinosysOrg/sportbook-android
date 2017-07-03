@@ -57,4 +57,16 @@ class ToolbarView : RelativeLayout {
         }
     }
 
+    fun setOnBackClickListener(onClickListener: () -> Unit) {
+        tvBackIcon.setOnClickListener({
+            onClickListener()
+        })
+    }
+
+    fun setOnNotificationClickListener(onClickListener: () -> Unit) {
+        tvNotificationIcon.setOnClickListener({
+            onClickListener()
+        })
+    }
+
 }

@@ -1,19 +1,16 @@
 package com.dinosys.sportbook.features.mytournament.opponent
 
-import com.dinosys.sportbook.networks.models.OpponentModel
+import com.dinosys.sportbook.networks.models.OpponentListModel
+import com.dinosys.sportbook.networks.tournament.TournamentAPI
+import io.reactivex.Observable
+import org.json.JSONObject
+import retrofit2.Response
+import javax.inject.Inject
 
-class OpponentViewModel() {
+class OpponentViewModel@Inject constructor(val tournamentAPI: TournamentAPI){
 
-    val sampleOpponents: ArrayList<OpponentModel>
-        get() {
-            val items = ArrayList<OpponentModel>()
+    fun getOpponentList(tournamentId: Int): Observable<Response<OpponentListModel>> {
+        return tournamentAPI.getOpponentList(tournamentId = tournamentId)
+    }
 
-            items.add(OpponentModel(1, "Nguen A"))
-            items.add(OpponentModel(2, "Nguen A"))
-            items.add(OpponentModel(3, "Nguen A"))
-            items.add(OpponentModel(4, "Nguen A"))
-            items.add(OpponentModel(5, "Nguen A"))
-
-            return items
-        }
 }

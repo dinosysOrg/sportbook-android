@@ -90,7 +90,7 @@ object AuthenticationManager {
         authObj.put("note", data?.note ?: "")
         authObj.put("facebook_uid", data?.facebookUid ?: "")
         authObj.put("facebook_credentials", data?.facebookCredentials ?: "")
-        authObj.put("skill_id", data?.skillId)
+        authObj.put("skill_id", data?.skillId ?: -1)
         authObj.put("club", data?.club ?: "")
 
         SharedPreferenceUtil.saveString(context, KEY_USER_INFO, authObj.toString())

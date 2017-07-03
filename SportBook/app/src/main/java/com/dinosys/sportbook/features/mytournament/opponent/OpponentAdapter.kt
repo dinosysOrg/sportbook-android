@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dinosys.sportbook.R
-import com.dinosys.sportbook.networks.models.OpponentModel
+import com.dinosys.sportbook.networks.models.OpponentTeamModel
 
-class OpponentAdapter(val items: List<OpponentModel>) : RecyclerView.Adapter<OpponentViewHolder>() {
+class OpponentAdapter(val items: List<OpponentTeamModel>) : RecyclerView.Adapter<OpponentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OpponentViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.item_my_tournament_opponent_list, parent, false)

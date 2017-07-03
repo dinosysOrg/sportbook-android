@@ -1,10 +1,8 @@
 package com.dinosys.sportbook.networks.tournament
 
-import com.dinosys.sportbook.networks.models.SkillModel
-import com.dinosys.sportbook.networks.models.TournamentDetailDataModel
-import com.dinosys.sportbook.networks.models.TournamentModel
-import com.dinosys.sportbook.networks.models.TournamentSignUpModel
+import com.dinosys.sportbook.networks.models.*
 import io.reactivex.Observable
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -33,4 +31,8 @@ interface TournamentAPI {
 
     @GET("tournaments/{tournamentId}")
     fun getTournamentDetail(@Path("tournamentId") idTournament: Int?): Observable<Response<TournamentDetailDataModel>>
+
+    @GET("tournaments/{tournamentId}/groups")
+    fun getOpponentList(@Path("tournamentId") tournamentId: Int?): Observable<Response<OpponentListModel>>
+    
 }

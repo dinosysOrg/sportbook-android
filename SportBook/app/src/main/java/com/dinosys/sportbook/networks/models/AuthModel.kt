@@ -20,7 +20,7 @@ data class AuthDataModel(@SerializedName("id") var id: Int?,
                          @SerializedName("note") var note: Any?,
                          @SerializedName("facebook_uid") var facebookUid: String?,
                          @SerializedName("facebook_credentials") var facebookCredentials: Any?,
-                         @SerializedName("skill_id") var skillId: Int?,
+                         @SerializedName("skill_id") var skillId: Int? = null,
                          @SerializedName("club") var club: String?)
 
 fun AuthDataModel.canSignUpTournament(): Boolean {
