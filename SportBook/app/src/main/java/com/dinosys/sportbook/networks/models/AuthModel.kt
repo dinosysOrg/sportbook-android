@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.networks.models
 
+import com.dinosys.sportbook.configs.SKILL_ID_UNDEFINE
 import com.google.gson.annotations.SerializedName
 import okhttp3.Headers
 
@@ -36,7 +37,7 @@ fun AuthDataModel.canSignUpTournament(): Boolean {
     if (this.address.isNullOrEmpty()) {
         return false
     }
-    if (this.skillId == null) {
+    if (this.skillId == null || this.skillId == SKILL_ID_UNDEFINE) {
         return false
     }
     return true

@@ -3,6 +3,7 @@ package com.dinosys.sportbook.managers
 import android.content.Context
 import com.dinosys.sportbook.configs.KEY_HEADER_INFO
 import com.dinosys.sportbook.configs.KEY_USER_INFO
+import com.dinosys.sportbook.configs.SKILL_ID_UNDEFINE
 import com.dinosys.sportbook.networks.models.AuthDataModel
 import com.dinosys.sportbook.networks.models.AuthModel
 import com.dinosys.sportbook.utils.SharedPreferenceUtil
@@ -90,7 +91,7 @@ object AuthenticationManager {
         authObj.put("note", data?.note ?: "")
         authObj.put("facebook_uid", data?.facebookUid ?: "")
         authObj.put("facebook_credentials", data?.facebookCredentials ?: "")
-        authObj.put("skill_id", data?.skillId ?: -1)
+        authObj.put("skill_id", data?.skillId ?: SKILL_ID_UNDEFINE)
         authObj.put("club", data?.club ?: "")
 
         SharedPreferenceUtil.saveString(context, KEY_USER_INFO, authObj.toString())
