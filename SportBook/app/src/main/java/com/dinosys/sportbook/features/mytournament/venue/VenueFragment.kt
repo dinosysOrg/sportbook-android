@@ -7,6 +7,7 @@ import com.dinosys.sportbook.application.SportbookApp
 import com.dinosys.sportbook.components.ConfirmDialog
 import com.dinosys.sportbook.components.RxBus
 import com.dinosys.sportbook.configs.TIME_SLOT_MIN_REQUIRED
+import com.dinosys.sportbook.exceptions.RequireFieldsMissingException
 import com.dinosys.sportbook.exceptions.UnauthorizedException
 import com.dinosys.sportbook.exceptions.UpdateTimeSlotFailure
 import com.dinosys.sportbook.exceptions.UpdateTimeSlotMissingFeild
@@ -16,6 +17,7 @@ import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.mytournament.venue.input.InputTimeAdapter
 import com.dinosys.sportbook.features.mytournament.venue.input.OnTimeBlocksListener
 import com.dinosys.sportbook.features.mytournament.venue.model.TimeSlotUIModel
+import com.dinosys.sportbook.networks.models.TimeBlockModel
 import com.dinosys.sportbook.networks.models.TournamentDetailDataModel
 import com.dinosys.sportbook.utils.LogUtil
 import io.reactivex.Observable
@@ -56,6 +58,7 @@ class VenueFragment : BaseFragment(), OnTimeBlocksListener, ConfirmDialog.Confir
 
     override fun initData() {
         SportbookApp.teamComponent.inject(this)
+        loadTimeBlocks()
     }
 
     override fun initListeners() {
@@ -63,6 +66,63 @@ class VenueFragment : BaseFragment(), OnTimeBlocksListener, ConfirmDialog.Confir
         btnUpdateTimeVenue.setOnClickListener {
             showConfirmDialog()
         }
+    }
+
+    private fun loadTimeBlocks() {
+        val teamId = tournamentDetail?.teams?.id
+        if (teamId == null) {
+            LogUtil.e(TAG, "[loadTimeBlocks] teamId is null")
+            return
+        }
+        teamAPI.getTimeBlocks(teamId = teamId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                    { response -> onLoadTimeBlockSuccessfully(response) },
+                    { throwable: Throwable? ->  onLoadTimeBlockFailure(throwable)}
+                ).addDisposableTo(this)
+    }
+
+    private fun onLoadTimeBlockSuccessfully(response: Response<TimeBlockModel>) {
+        when (response.code()) {
+            in 200..300 -> {
+                val timeBlock = response.body()
+                if (timeBlock == null) {
+                    onLoadTimeBlockFailure(NullPointerException("Timeblock is null"))
+                } else {
+                    renderUIForTimeBlock(timeBlockModel = timeBlock)
+                }
+            }
+            401 -> onLoadTimeBlockFailure(UnauthorizedException(response.message()))
+            422 -> onLoadTimeBlockFailure(RequireFieldsMissingException(response.message()))
+        }
+    }
+
+    private fun renderUIForTimeBlock(timeBlockModel: TimeBlockModel) {
+        val preferredTimeBlocks = timeBlockModel.preferredTimeBlocks
+        if (preferredTimeBlocks == null) {
+            LogUtil.e(TAG, "[renderUIForTimeBlock] preferredTimeBlocks = null")
+            return
+        }
+        val arrayDays = resources.getStringArray(R.array.array_time_range_days)
+        renderUIForTimeBlockItem(arrayDays[0], preferredTimeBlocks.sunday)
+        renderUIForTimeBlockItem(arrayDays[1], preferredTimeBlocks.monday)
+        renderUIForTimeBlockItem(arrayDays[2], preferredTimeBlocks.tuesday)
+        renderUIForTimeBlockItem(arrayDays[3], preferredTimeBlocks.wednesday)
+        renderUIForTimeBlockItem(arrayDays[4], preferredTimeBlocks.thursday)
+        renderUIForTimeBlockItem(arrayDays[5], preferredTimeBlocks.firday)
+        renderUIForTimeBlockItem(arrayDays[6], preferredTimeBlocks.staturday)
+    }
+
+    private fun renderUIForTimeBlockItem(day: String, blocks: List<List<Int>>?) {
+        blocks?.forEach { block ->
+            val blockTime = getTimeBlockByHour(hour = block[0])
+            updateTimeBlockToAdatper(day = day, blockTime = blockTime!!)
+        }
+    }
+
+    private fun onLoadTimeBlockFailure(t: Throwable?) {
+        LogUtil.e(TAG, "[onLoadTimeBlockFailure] error: ${t?.message}")
     }
 
     private fun disableUIIfAlreadyUpdatedTimeVenue() {
@@ -106,7 +166,7 @@ class VenueFragment : BaseFragment(), OnTimeBlocksListener, ConfirmDialog.Confir
             401 -> onUpdateTimeSlotFailure(UnauthorizedException(getString(R.string.error_unauthorized_text)))
             405 -> onUpdateTimeSlotFailure(UpdateTimeSlotFailure(getString(R.string.error_update_time_slot_failure_text)))
             422 -> onUpdateTimeSlotFailure(UpdateTimeSlotMissingFeild(getString(R.string.error_missing_feild_text)))
-            else -> onUpdateTimeSlotFailure(Exception(response?.message()))
+            else -> onUpdateTimeSlotFailure(Exception(response.message()))
         }
 
     }
@@ -157,6 +217,15 @@ class VenueFragment : BaseFragment(), OnTimeBlocksListener, ConfirmDialog.Confir
         return null
     }
 
+    private fun getTimeBlockByHour(hour: Int): String? {
+        when (hour) {
+            in 9..11 -> return activity.getString(R.string.time_block_9am_12am_text)
+            in 13..15 -> return activity.getString(R.string.time_block_1pm_4pm_text)
+            in 17..20 -> return activity.getString(R.string.time_block_5pm_9pm_text)
+        }
+        return null
+    }
+
     fun getTimeSlotUIListDefault(): ArrayList<TimeSlotUIModel> {
         val items = ArrayList<TimeSlotUIModel>()
         items.add(TimeSlotUIModel(isHeader = true))
@@ -167,21 +236,25 @@ class VenueFragment : BaseFragment(), OnTimeBlocksListener, ConfirmDialog.Confir
     }
 
     override fun OnTimeBlockClick(day: String, blockTime: String) {
-        if (!btnUpdateTimeVenue.isEnabled) {
-            return
+        if (btnUpdateTimeVenue.isEnabled) {
+            updateTimeBlockToAdatper(day = day, blockTime = blockTime)
         }
+    }
+
+    private fun updateTimeBlockToAdatper(day: String, blockTime: String) {
         hideUpdateTimeSlotError()
-        val timeVenue = timeSlotList?.filter {
-            timeVenueUIModel -> timeVenueUIModel.timeBlock!!.equals(blockTime)
+        val timeSlotRow = timeSlotList?.filter {
+            timeVenueUIModel -> timeVenueUIModel.timeBlock == blockTime
         }?.get(0)
-        if (timeVenue == null) {
+        if (timeSlotRow == null) {
+            LogUtil.e(TAG, "[updateTimeBlockToAdatper] timeVenue = NULL")
             return
         }
-        if (timeVenue.blockTimeRangeList == null) {
-            timeVenue.blockTimeRangeList = ArrayList<String>()
+        if (timeSlotRow.blockTimeRangeList == null) {
+            timeSlotRow.blockTimeRangeList = ArrayList<String>()
         }
 
-        val blockTimeRangeList = timeVenue.blockTimeRangeList
+        val blockTimeRangeList = timeSlotRow.blockTimeRangeList
         if (blockTimeRangeList!!.contains(day)) {
             blockTimeRangeList.remove(day)
         } else {
