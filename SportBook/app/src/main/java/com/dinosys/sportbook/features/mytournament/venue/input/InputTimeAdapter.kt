@@ -7,7 +7,7 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.mytournament.venue.model.TimeSlotUIModel
 import java.lang.ref.WeakReference
 
-class InputTimeAdapter(val inputTimeList: List<TimeSlotUIModel>?, val onTimeBlockListener: WeakReference<OnTimeBlocksListener>) : RecyclerView.Adapter<InputTimeViewHolder>() {
+class InputTimeAdapter(val inputTimeList: ArrayList<TimeSlotUIModel>?, val onTimeBlockListener: WeakReference<OnTimeBlocksListener>) : RecyclerView.Adapter<InputTimeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): InputTimeViewHolder? {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_my_tournament_input_timeslot, parent, false)
