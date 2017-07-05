@@ -28,13 +28,13 @@ data class PreferredTimeBlocks (
     @SerializedName("wednesday")
     val wednesday: List<List<Int>>? = null,
 
-    @SerializedName("thurday")
+    @SerializedName("thursday")
     val thursday: List<List<Int>>? = null,
 
-    @SerializedName("firday")
+    @SerializedName("friday")
     val firday: List<List<Int>>? = null,
 
-    @SerializedName("staturday")
+    @SerializedName("saturday")
     val staturday: List<List<Int>>? = null,
 
     @SerializedName("sunday")
