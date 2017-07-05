@@ -1,7 +1,6 @@
 package com.dinosys.sportbook.features.mytournament.venue
 
-import android.content.Context
-import android.util.Log
+import com.dinosys.sportbook.networks.models.TimeBlockModel
 import com.dinosys.sportbook.networks.teams.TeamsAPI
 import io.reactivex.Observable
 import org.json.JSONArray
@@ -18,6 +17,10 @@ class VenueViewModel @Inject constructor(val teamsAPI: TeamsAPI) {
                 "venue_ranking" to venueRanking
         )
         return teamsAPI.updateTimeSlots(hashMap, teamId!!)
+    }
+
+    fun getTimeBlocks(teamId: Int?): Observable<Response<TimeBlockModel>> {
+        return teamsAPI.getTimeBlocks(teamId)
     }
 
 }
