@@ -68,7 +68,11 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingTop">12dp</item>
     </style>
-
+    <style name="styleTextViewHeaderForInvitationDetail" parent="styleTextViewHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:padding">0dp</item>
+    </style>
     <style name="styleTextViewTimeRange">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -166,6 +170,37 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="styleInvitationDetail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="styleInvitationDetail_ItemHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="styleInvitationDetail_Smallline">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorBlackGrey</item>
+    </style>
+
+    <style name="styleInviationDetail_ItemValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="styleInviationDetail_Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
 </resources>

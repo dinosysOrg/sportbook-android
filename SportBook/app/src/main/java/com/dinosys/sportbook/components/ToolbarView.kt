@@ -69,4 +69,12 @@ class ToolbarView : RelativeLayout {
         })
     }
 
+    fun setIconRightFromResource(resId: Int) {
+        tvNotificationIcon.setText(resId)
+    }
+
+    fun setIconLeftFromResource(resId: Int) {
+        tvBackIcon.setText(resId)
+    }
+
 }

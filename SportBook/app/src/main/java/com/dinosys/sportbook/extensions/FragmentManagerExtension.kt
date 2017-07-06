@@ -8,6 +8,7 @@ import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
 import com.dinosys.sportbook.features.mytournament.detail.MyTournamentSpecificFragment
 import com.dinosys.sportbook.features.mytournament.invitation.InvitationFragment
 import com.dinosys.sportbook.features.mytournament.opponent.OpponentFragment
+import com.dinosys.sportbook.features.mytournament.results.ResultFragment
 import com.dinosys.sportbook.features.mytournament.timetable.TimeTableFragment
 import com.dinosys.sportbook.features.mytournament.venue.VenueFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment
@@ -47,6 +48,7 @@ private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
         OpponentFragment.TAG -> OpponentFragment()
         InvitationFragment.TAG -> InvitationFragment()
         TimeTableFragment.TAG -> TimeTableFragment()
+        ResultFragment.TAG -> ResultFragment()
         else -> null
     }
 
