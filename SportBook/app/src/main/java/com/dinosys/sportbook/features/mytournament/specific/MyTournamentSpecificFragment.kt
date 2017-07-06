@@ -9,6 +9,7 @@ import com.dinosys.sportbook.extensions.addDisposableTo
 import com.dinosys.sportbook.extensions.openScreenByTag
 import com.dinosys.sportbook.features.BaseFragment
 import com.dinosys.sportbook.features.mytournament.opponent.OpponentFragment
+import com.dinosys.sportbook.features.mytournament.results.ResultFragment
 import com.dinosys.sportbook.features.mytournament.timetable.TimeTableFragment
 import com.dinosys.sportbook.features.mytournament.venue.VenueFragment
 import com.dinosys.sportbook.features.tournament.overview.TournamentOverviewFragment
@@ -50,6 +51,9 @@ class MyTournamentSpecificFragment : BaseFragment() {
                 3 -> {
                     fragmentManager.openScreenByTag(OpponentFragment.TAG)
                     RxBus.publish(tournamentDetail!!)
+                }
+                4 -> {
+                    fragmentManager.openScreenByTag(ResultFragment.TAG)
                 }
             }
         }

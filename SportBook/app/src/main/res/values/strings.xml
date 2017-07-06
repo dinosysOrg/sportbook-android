@@ -28,6 +28,7 @@
     <string name="error_password_mismatch_text">Password mistmatch!</string>
     <string name="error_signup_failure_text">Sign up failure.</string>
     <string name="icon_back">&#xf104;</string>
+    <string name="icon_next">&#xf105;</string>
     <string name="icon_notification">&#xf0a2;</string>
     <string name="sign_up_text">Sign Up</string>
     <string name="continue_text">Continue</string>
@@ -70,4 +71,9 @@
     <string name="error_you_must_at_least_pick_5_timeslots_text">You must at least pick 5 timeslots</string>
     <string name="opponents_list_text">Opponents list</string>
     <string name="title_opponent_list">Opponent List</string>
+    <string name="round_text">Round:</string>
+    <string name="accept_invitation_text">Accept Invitation</string>
+    <string name="decline_and_pick_another_time_text">decline and pick another time</string>
+    <string name="warning_invitation_expired_after_24_hours_text">This invitation will expired after 24 hours.\n You will be count as forfeit if you don’t respond</string>
+    <string name="icon_warning_text">!</string>
 </resources>
