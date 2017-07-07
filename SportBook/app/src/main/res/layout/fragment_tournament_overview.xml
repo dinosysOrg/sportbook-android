@@ -27,6 +27,8 @@
         android:id="@+id/btnSignUpTournament"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:enabled="false"
+        android:visibility="invisible"
         android:text="@string/sign_up_text" />
 
     <android.support.design.widget.TabLayout

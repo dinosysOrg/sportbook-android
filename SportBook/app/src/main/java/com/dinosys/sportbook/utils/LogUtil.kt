@@ -1,5 +1,6 @@
 package com.dinosys.sportbook.utils
 
+import BuildConfig
 import android.util.Log
 
 object LogUtil {
