@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "573315858064",
+    "firebase_url": "https://sportbook-326c8.firebaseio.com",
+    "project_id": "sportbook-326c8",
+    "storage_bucket": "sportbook-326c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573315858064:android:2f895f34e855743f",
+        "android_client_info": {
+          "package_name": "com.dinosys.sportbook_production"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573315858064-rjajroqavgc1lahsht8916k2nes9caap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU8ShuyzpNP4roDfaTYszKJN9xK-PBVs4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

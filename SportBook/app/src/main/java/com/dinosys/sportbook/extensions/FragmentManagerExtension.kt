@@ -3,9 +3,9 @@ package com.dinosys.sportbook.extensions
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import com.dinosys.sportbook.R
 import com.dinosys.sportbook.features.mytournament.MyTournamentFragment
+import com.dinosys.sportbook.features.mytournament.detail.MyTournamentSpecificFragment
 import com.dinosys.sportbook.features.signin.ForgotFragment
 import com.dinosys.sportbook.features.signin.SignInFragment
 import com.dinosys.sportbook.features.signup.SignUpFragment
@@ -38,6 +38,7 @@ private fun FragmentManager.createFragmentByTAG(tag: String) : Fragment? =
         TournamentOverviewFragment.TAG -> TournamentOverviewFragment()
         TournamentSignUpFragment.TAG -> TournamentSignUpFragment()
         MyTournamentFragment.TAG -> MyTournamentFragment()
+        MyTournamentSpecificFragment.TAG -> MyTournamentSpecificFragment()
         else -> null
     }
 
@@ -52,6 +53,27 @@ fun FragmentManager.remove(fragment: Fragment) {
     val transaction = this.beginTransaction()
     transaction.remove(fragment)
             .commit()
+}
+
+fun FragmentManager.popBackStack(numberOfFragment: Int) {
+    if (numberOfFragment <= 0) {
+        LogUtil.e("FragmentManager", "[removeTopFragment] numbers <= 0")
+        return
+    }
+
+    if (numberOfFragment > fragments.size) {
+        LogUtil.e("FragmentManager", "[removeTopFragment] numbers > curentSizeBackStack")
+        return
+    }
+
+    val transaction = this.beginTransaction()
+
+    val fromPos = fragments.size - numberOfFragment
+    for (currentPos in fromPos until fragments.size) {
+        transaction.remove(fragments[currentPos])
+    }
+
+    transaction.commit()
 }
 
 private fun FragmentManager.attachFragment(containerId: Int,
