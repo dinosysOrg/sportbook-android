@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_time_range_days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    <string-array name="array_my_tournament_specific_menu">
+        <item>Rules and regulation</item>
+        <item>Input time_Rank venue</item>
+        <item>Tournament timetable</item>
+        <item>Opponents List</item>
+        <item>Tournament results</item>
+    </string-array>
+    <string-array name="array_rank_venues">
+        <item>Rank</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+</resources>
