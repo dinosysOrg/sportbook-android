@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val auth = AuthenticationManager.getUser(applicationContext)
+        val auth = AuthenticationManager.getUserInfo(applicationContext)
         when (auth) {
             null -> supportFragmentManager.openScreenByTag(SignInFragment.TAG)
             else -> loadTabContentDefaultSelected()
