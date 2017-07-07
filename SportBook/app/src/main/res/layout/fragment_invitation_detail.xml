@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorGrey"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvNotificationTitle"
+                style="@style/styleTextViewHeaderForInvitationDetail"
+                android:text="The Notification Title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNotificationTimeSent"
+                style="@style/styleTextViewHeaderForInvitationDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:text="sent 5 minutes ago"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/styleInvitationDetail">
+
+            <LinearLayout style="@style/styleInviationDetail_Item">
+
+                <TextView
+                    style="@style/styleInvitationDetail_ItemHeader"
+                    android:text="@string/round_text" />
+
+                <View style="@style/styleInvitationDetail_Smallline" />
+
+                <TextView
+                    android:id="@+id/tvRoundName"
+                    style="@style/styleInviationDetail_ItemValue"
+                    android:text="Round Name" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/styleInviationDetail_Item">
+
+                <TextView
+                    style="@style/styleInvitationDetail_ItemHeader"
+                    android:text="@string/round_text" />
+
+                <View style="@style/styleInvitationDetail_Smallline" />
+
+                <TextView
+                    android:id="@+id/tvRoundOpponent"
+                    style="@style/styleInviationDetail_ItemValue"
+                    android:text="The opponent" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/styleInviationDetail_Item">
+
+                <TextView
+                    style="@style/styleInvitationDetail_ItemHeader"
+                    android:text="@string/round_text" />
+
+                <View style="@style/styleInvitationDetail_Smallline" />
+
+                <TextView
+                    android:id="@+id/tvRoundWhen"
+                    style="@style/styleInviationDetail_ItemValue"
+                    android:text="Monday, May 05th 2017 at 7:00pm" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/styleInviationDetail_Item">
+
+                <TextView
+                    style="@style/styleInvitationDetail_ItemHeader"
+                    android:text="@string/round_text" />
+
+                <View style="@style/styleInvitationDetail_Smallline" />
+
+                <TextView
+                    android:id="@+id/tvRoundVenue"
+                    style="@style/styleInviationDetail_ItemValue"
+                    android:text="ABC Venue" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept_invitation_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/decline_and_pick_another_time_text" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/icon_warning_text"
+                android:textSize="50sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warning_invitation_expired_after_24_hours_text"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

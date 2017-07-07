@@ -40,8 +40,8 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textColorHint">@color/colorTabBackgroundUnSelected</item>
-        <item name="android:background">@drawable/background_edit_text</item>
         <item name="android:padding">7dp</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="styleTournamentBlock">
@@ -50,6 +50,157 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
+    </style>
+    <style name="styleMyTournamentDetailItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="styleTextViewHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorGrey</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">12dp</item>
+    </style>
+    <style name="styleTextViewHeaderForInvitationDetail" parent="styleTextViewHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="styleTextViewTimeRange">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <style name="styleTextViewVenueName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="styleTextViewVenueDistance">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorGrey</item>
+    </style>
+
+    <style name="styleSpinnerRankVenue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorGrey</item>
+    </style>
+
+    <style name="styleViewUnderline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/colorBlackGrey</item>
+    </style>
+
+    <style name="styleTextViewTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/colorBlackGrey</item>
+    </style>
+
+    <style name="styleTimeVenueTimeBlock">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2.5</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleTimeVenueIsAvailable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+
+    <style name="styleTimeBlockBorder">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+
+    <style name="styleTimeBlockUnderline">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+
+    <style name="styleOpponentGroupHeaderItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorGreyMore</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="styleInvitationDetail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="styleInvitationDetail_ItemHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="styleInvitationDetail_Smallline">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorBlackGrey</item>
+    </style>
+
+    <style name="styleInviationDetail_ItemValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="styleInviationDetail_Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
 </resources>

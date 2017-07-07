@@ -6,4 +6,4 @@ data class SkillModel(@SerializedName("_embedded") val embedded: SkillEmbeddedMo
 
 data class SkillEmbeddedModel(@SerializedName("skills") val skills: ArrayList<SkillDataModel>?)
 
-data class SkillDataModel(@SerializedName("name") val name: String?)
+data class SkillDataModel(@SerializedName("id") val id: Int?, @SerializedName("name") val name: String?)
