@@ -4,6 +4,7 @@ import com.dinosys.sportbook.R
 import com.dinosys.sportbook.extensions.popBackStack
 import com.dinosys.sportbook.features.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mytournament_result.*
+import kotlinx.android.synthetic.main.fragment_my_tournament_result.*
 
 class ResultFragment: BaseFragment() {
 
