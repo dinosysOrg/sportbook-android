@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_main_container"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llBlockTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="4dp">
+
+        <TextView
+            android:id="@+id/tvTimeBlockLeft"
+            style="@style/styleTimeVenueTimeBlock"
+            android:text="" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvSunday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvMonday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvTuesday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvWednesday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvThursday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvFriday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+        <View style="@style/styleTimeBlockBorder" />
+
+        <TextView
+            android:id="@+id/tvSaturday"
+            style="@style/styleTimeVenueIsAvailable" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/ViewUnderline"
+        style="@style/styleTimeBlockUnderline" />
+
+</LinearLayout>
