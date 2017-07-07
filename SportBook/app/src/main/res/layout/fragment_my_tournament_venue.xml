@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.dinosys.sportbook.components.ToolbarView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:enableNotificationIcon="true"
+            app:enableBackIcon="true"
+            app:toolbarTitle="@string/title_mytournament" />
+
+        <RelativeLayout
+            android:id="@+id/llInputTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvInputTimeSlotHeader"
+                style="@style/styleTextViewHeader"
+                android:layout_alignParentTop="true"
+                android:text="@string/input_your_time_range_text" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTimeVenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvInputTimeSlotHeader" />
+
+            <LinearLayout
+                android:id="@+id/llInputTimeSlotError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:visibility="gone"
+               >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:background="@color/colorBoxGray"
+                    android:padding="5dp"
+                    android:text="@string/error_you_must_at_least_pick_5_timeslots_text" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/styleTextViewHeader"
+                android:text="@string/rank_your_venue_text" />
+
+            <LinearLayout
+                android:id="@+id/llRankVenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvRankVenue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnUpdateTimeVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/submit_text" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

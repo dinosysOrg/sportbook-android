@@ -1,5 +1,7 @@
 package com.dinosys.sportbook.networks.authentication
 
+import com.dinosys.sportbook.configs.DEFAULT_USER_ID_UNKNOWN
+import com.dinosys.sportbook.configs.PLATFORM_ANDROID_VALUE
 import com.dinosys.sportbook.networks.models.AuthModel
 import io.reactivex.Observable
 import org.json.JSONObject
@@ -32,4 +34,9 @@ interface AuthenticationAPI {
     @POST("auth/")
     fun signUp(@Field("email")email:String, @Field("password") password:String, @Field("password_confirmation") passwordConfirmation: String): Observable<Response<AuthModel>>
 
+    @FormUrlEncoded
+    @POST("/v1/invitations/create")
+    fun sendTokenToServer(@Field("user_id") userId: Int? = DEFAULT_USER_ID_UNKNOWN,
+                          @Field("token") token: String?,
+                          @Field("platform") platform: Int? = PLATFORM_ANDROID_VALUE): Observable<Response<JSONObject>>
 }
