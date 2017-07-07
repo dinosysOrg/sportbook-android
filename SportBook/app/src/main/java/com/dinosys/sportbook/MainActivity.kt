@@ -11,6 +11,9 @@ import com.dinosys.sportbook.features.tournament.TournamentFragment
 import com.dinosys.sportbook.managers.AuthenticationManager
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
+import com.crashlytics.android.core.CrashlyticsCore
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,13 +21,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        Fabric.with(this, Crashlytics())
+        Fabric.with(this, Crashlytics.Builder().core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build())
         initListeners()
         initViews()
     }
 
     private fun initViews() {
-        val auth = AuthenticationManager.getUser(applicationContext)
+        val auth = AuthenticationManager.getUserInfo(applicationContext)
         when (auth) {
             null -> supportFragmentManager.openScreenByTag(SignInFragment.TAG)
             else -> loadTabContentDefaultSelected()
